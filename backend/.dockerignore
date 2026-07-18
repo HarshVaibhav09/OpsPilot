@@ -1,0 +1,31 @@
+# Virtual environments
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Git
+.git
+.gitignore
+
+# Environment
+.env
+
+# Database & Vector DB
+data/
+
+# Tests
+tests/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Docker
+Dockerfile
+.dockerignore

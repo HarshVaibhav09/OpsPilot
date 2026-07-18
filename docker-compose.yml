@@ -1,0 +1,30 @@
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: opspilot-backend
+
+    ports:
+      - "8080:8080"
+
+    env_file:
+      - ./backend/.env
+
+    volumes:
+      - ./backend/data:/app/data
+
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: opspilot-frontend
+
+    ports:
+      - "5173:5173"
+
+    depends_on:
+      - backend
+
+    restart: unless-stopped
