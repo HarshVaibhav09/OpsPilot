@@ -1,0 +1,80 @@
+# ==========================
+# Python
+# ==========================
+venv/
+.venv/
+env/
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python packaging
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# ==========================
+# Environment
+# ==========================
+.env
+.env.*
+!.env.example
+
+# ==========================
+# Database / Storage
+# ==========================
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# ==========================
+# ChromaDB
+# ==========================
+chroma/
+chromadb/
+
+# ==========================
+# Node / React
+# ==========================
+node_modules/
+dist/
+.vite/
+coverage/
+
+# ==========================
+# Logs
+# ==========================
+*.log
+logs/
+
+# ==========================
+# IDE
+# ==========================
+.vscode/
+.idea/
+
+# ==========================
+# OS
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Testing
+# ==========================
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ==========================
+# Build
+# ==========================
+build/
+
+# Hugging Face
+.huggingface/
+hf_cache/
