@@ -33,7 +33,6 @@ def debug_retrieve(request: DebugQuery):
                 "page": chunk["page"],
                 "section": chunk["section"],
                 "similarity": chunk["similarity"],
-                "rerank_score": chunk["rerank_score"],
                 "text_preview": chunk["text"][:200],
             }
             for chunk in chunks

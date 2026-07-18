@@ -19,7 +19,6 @@ class Settings(BaseSettings):
 
     # Embeddings
     embedding_model: str = "BAAI/bge-small-en-v1.5"
-    reranker_model: str = "BAAI/bge-reranker-base"
 
     # Chunking
     chunk_size: int = 700

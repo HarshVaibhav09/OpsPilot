@@ -1,10 +1,6 @@
-from sentence_transformers import CrossEncoder
-
 from app.core.config import settings
 from app.db.vector_store import vector_store
 from app.services.ingestion_service import _embedder
-
-_reranker = CrossEncoder(settings.reranker_model)
 
 
 def retrieve_chunks(
@@ -39,7 +35,7 @@ def retrieve_chunks(
     if not candidates:
         return []
 
-    return _rerank(query, candidates)[: settings.top_k_final]
+    return candidates[: settings.top_k_final]
 
 
 def _format_results(results: dict) -> list[dict]:
@@ -61,25 +57,3 @@ def _format_results(results: dict) -> list[dict]:
         }
         for text, meta, distance in zip(documents, metadatas, distances)
     ]
-
-
-def _rerank(query: str, candidates: list[dict]) -> list[dict]:
-
-    scores = _reranker.predict(
-        [[query, c["text"]] for c in candidates]
-    )
-
-    for candidate, score in zip(candidates, scores):
-        score = float(score)
-
-        # Small boost for table chunks
-        if candidate["content_type"] == "table":
-            score += 0.05
-
-        candidate["rerank_score"] = round(score, 4)
-
-    return sorted(
-        candidates,
-        key=lambda x: x["rerank_score"],
-        reverse=True,
-    )

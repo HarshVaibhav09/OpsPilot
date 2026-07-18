@@ -123,16 +123,7 @@ def _calculate_confidence(
         c["similarity"] for c in chunks
     ) / len(chunks)
 
-    rerank = sum(
-        c["rerank_score"] for c in chunks
-    ) / len(chunks)
-
-    confidence = (
-        similarity * 0.55
-        + min(rerank / 15, 1.0) * 0.45
-    )
-
-    return round(min(confidence, 1.0), 2)
+    return round(min(similarity, 1.0), 2)
 
 
 def _contextualize_query(
