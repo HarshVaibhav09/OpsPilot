@@ -79,3 +79,22 @@ class ChatMessage(BaseModel):
 class ChatHistoryResponse(BaseModel):
     session_id: str
     messages: list[ChatMessage]
+
+class UploadJobResponse(BaseModel):
+    job_id: str
+    status: str
+    accepted_files: list[str]
+    rejected_files: list[str] = []
+
+
+class FileJobStatus(BaseModel):
+    filename: str
+    status: str
+    result: DocumentMetadata | None = None
+    error: str | None = None
+
+
+class JobStatusResponse(BaseModel):
+    job_id: str
+    status: str
+    files: list[FileJobStatus]
