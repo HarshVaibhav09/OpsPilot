@@ -187,3 +187,8 @@ None of these are hypothetical nice-to-haves — they're things I actually hit w
 | **Backend** | FastAPI, ChromaDB, fastembed (`BAAI/bge-small-en-v1.5`), rank-bm25, PyMuPDF, Groq (`llama-3.3-70b-versatile`), SQLite |
 | **Frontend** | React (Vite) |
 | **Deployment** | Railway (backend), Vercel (frontend) |
+
+
+
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/HarshVaibhav09/OpsPilot)
