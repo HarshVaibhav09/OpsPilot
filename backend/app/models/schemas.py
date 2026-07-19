@@ -9,7 +9,7 @@ class DocumentMetadata(BaseModel):
     page_count: int
     chunk_count: int
     has_conflicts: bool = False
-
+    document_type: str = "general"
 
 class UploadResponse(BaseModel):
     documents: list[DocumentMetadata]
