@@ -1,6 +1,6 @@
 from app.core.config import settings
 from app.db.vector_store import vector_store
-from app.services.ingestion_service import _embedder
+from app.services.embedding_service import embed_query
 
 
 def retrieve_chunks(
@@ -9,11 +9,7 @@ def retrieve_chunks(
     hybrid: bool = True,
 ) -> list[dict]:
 
-    query_embedding = _embedder.encode(
-        query,
-        normalize_embeddings=True,
-        convert_to_numpy=True,
-    ).tolist()
+    query_embedding = embed_query(query)
 
     results = (
         vector_store.hybrid_query(

@@ -1,15 +1,16 @@
+import os
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+
 import re
 import uuid
 
 import fitz
-from sentence_transformers import SentenceTransformer
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from app.core.config import settings
 from app.db.vector_store import vector_store
-from app.services.document_analysis_service import analyze_document
-
-_embedder = SentenceTransformer(settings.embedding_model)
+from app.services.embedding_service import embed_documents
 
 _splitter = RecursiveCharacterTextSplitter(
     chunk_size=settings.chunk_size,
@@ -137,19 +138,20 @@ def chunk_pages(
 
 
 def embed_chunks(chunks: list[dict]) -> list[list[float]]:
-    return _embedder.encode(
-        [c["text"] for c in chunks],
-        batch_size=32,
-        normalize_embeddings=True,
-        convert_to_numpy=True,
-        show_progress_bar=False,
-    ).tolist()
+    return embed_documents([c["text"] for c in chunks])
 
 
 def ingest_document(file_bytes: bytes, filename: str) -> dict:
     doc_id = str(uuid.uuid4())
 
     pages = extract_pages(file_bytes)
+
+    if len(pages) > settings.max_pages:
+        raise ValueError(
+            f"'{filename}' has {len(pages)} pages, which exceeds the "
+            f"{settings.max_pages}-page limit for this deployment. "
+            f"Please split it into smaller files and upload separately."
+        )
 
     has_any_content = any(
         page["text"].strip() or page.get("tables") for page in pages
@@ -175,12 +177,6 @@ def ingest_document(file_bytes: bytes, filename: str) -> dict:
         metadatas=[c["metadata"] for c in chunks],
     )
 
-    analysis = analyze_document(
-        doc_id=doc_id,
-        filename=filename,
-        chunks=chunks,
-    )
-
     table_chunk_count = sum(1 for c in chunks if c["metadata"]["content_type"] == "table")
 
     return {
@@ -189,5 +185,6 @@ def ingest_document(file_bytes: bytes, filename: str) -> dict:
         "page_count": len(pages),
         "chunk_count": len(chunks),
         "table_chunk_count": table_chunk_count,
-        "has_conflicts": analysis["contradictions"]["has_conflict"],
+        "has_conflicts": False,  # contradiction analysis runs separately, in the background
+        "chunks": chunks,
     }
