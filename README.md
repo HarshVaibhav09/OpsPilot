@@ -48,7 +48,8 @@ Frontend (React, Vercel) talks to a FastAPI backend (Railway). The backend split
 
 **Diagram:**
 
-![Architecture diagram](./architecture-diagram.jpg)
+<img width="2417" height="3004" alt="OpsPilot" src="https://github.com/user-attachments/assets/074624fe-8a96-487a-a0a8-ad1f5ff74340" />
+
 
 ---
 
