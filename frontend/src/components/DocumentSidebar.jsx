@@ -13,6 +13,7 @@ function DocumentSidebar({
 }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [uploadingCount, setUploadingCount] = useState(0);
 
   useEffect(() => {
     fetchDocuments();
@@ -63,7 +64,10 @@ function DocumentSidebar({
           borderBottom: "1px solid #e5e7eb",
         }}
       >
-        <Uploader onUploadComplete={onDocumentsChanged} />
+        <Uploader
+          onUploadComplete={onDocumentsChanged}
+          onActiveCountChange={setUploadingCount}
+        />
       </div>
 
       <div
@@ -73,6 +77,12 @@ function DocumentSidebar({
           padding: "16px",
         }}
       >
+        {uploadingCount > 0 && (
+          <p style={{ color: "#2563eb", fontSize: "13px", marginBottom: "12px" }}>
+            ⚙️ {uploadingCount} document{uploadingCount > 1 ? "s" : ""} still processing...
+          </p>
+        )}
+
         {loading && (
           <p style={{ color: "#6b7280" }}>
             Loading documents...
@@ -85,7 +95,7 @@ function DocumentSidebar({
           </p>
         )}
 
-        {!loading && !documents.length && (
+        {!loading && !documents.length && !uploadingCount && (
           <p
             style={{
               color: "#6b7280",
@@ -138,7 +148,6 @@ function DocumentSidebar({
               >
                 {doc.page_count} pages • {doc.chunk_count} chunks
               </div>
-
 
               <div
                 style={{

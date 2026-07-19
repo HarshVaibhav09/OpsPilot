@@ -27,6 +27,10 @@ export async function uploadDocuments(files) {
   });
 }
 
+export function getUploadStatus(jobId) {
+  return request(`/documents/upload/${jobId}/status`);
+}
+
 export function listDocuments() {
   return request("/documents");
 }
