@@ -28,6 +28,9 @@ class Settings(BaseSettings):
     top_k_retrieval: int = 8
     top_k_final: int = 5
 
+    # Ingestion limits
+    max_pages: int = 60
+
     # Storage
     chroma_persist_dir: str = "./data/chroma"
     session_db_path: str = "./data/sessions.db"
