@@ -1,5 +1,5 @@
 import chromadb
-# from chromadb.config import Settings as ChromaSettings
+from chromadb.config import Settings as ChromaSettings
 from rank_bm25 import BM25Okapi
 
 from app.core.config import settings
@@ -9,6 +9,7 @@ class VectorStore:
     def __init__(self):
         self.client = chromadb.PersistentClient(
             path=settings.chroma_persist_dir,
+            settings=ChromaSettings(anonymized_telemetry=False),
         )
 
         self.collection = self.client.get_or_create_collection(
@@ -18,6 +19,7 @@ class VectorStore:
 
         self._bm25 = None
         self._documents = []
+        self._bm25_dirty = True
 
     def add_chunks(
         self,
@@ -32,7 +34,7 @@ class VectorStore:
             embeddings=embeddings,
             metadatas=metadatas,
         )
-        self._rebuild_bm25()
+        self._bm25_dirty = True
 
     def query(
         self,
@@ -53,6 +55,8 @@ class VectorStore:
         top_k: int,
         doc_id: str | None = None,
     ):
+        self._ensure_bm25()
+
         dense = self.query(
             query_embedding=query_embedding,
             top_k=top_k * 2,
@@ -131,6 +135,11 @@ class VectorStore:
             "distances": [[r["distance"] for r in ranked]],
         }
 
+    def _ensure_bm25(self):
+        if self._bm25_dirty:
+            self._rebuild_bm25()
+            self._bm25_dirty = False
+
     def _rebuild_bm25(self):
         data = self.collection.get(
             include=["documents", "metadatas"]
@@ -155,7 +164,7 @@ class VectorStore:
 
     def delete_document(self, doc_id: str):
         self.collection.delete(where={"doc_id": doc_id})
-        self._rebuild_bm25()
+        self._bm25_dirty = True
 
     def list_documents(self) -> list[dict]:
         data = self.collection.get(include=["metadatas"])
