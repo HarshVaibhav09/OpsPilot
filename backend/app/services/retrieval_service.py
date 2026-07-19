@@ -48,6 +48,7 @@ def _format_results(results: dict) -> list[dict]:
             "page": meta["page"],
             "section": meta.get("section", "General"),
             "content_type": meta.get("content_type", "text"),
+            "document_type": meta.get("document_type", "general"),
             "text": text,
             "similarity": round(max(0.0, 1 - distance), 4),
         }

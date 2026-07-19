@@ -179,6 +179,7 @@ class VectorStore:
                     "doc_id": meta["doc_id"],
                     "filename": meta["filename"],
                     "page_count": meta.get("page_count", 0),
+                    "document_type": meta.get("document_type", "general"),
                     "chunk_count": 0,
                 },
             )
