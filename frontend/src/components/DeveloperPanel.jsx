@@ -145,7 +145,11 @@ function DeveloperPanel({ developer }) {
                 </span>
 
                 <span>
-                  Type: {chunk.content_type === "table" ? "Table" : "Text"}
+                  Type: {contentTypeLabel(chunk.content_type)}
+                </span>
+
+                <span>
+                  Doc type: {chunk.document_type || "general"}
                 </span>
             </div>
 
@@ -165,6 +169,17 @@ function DeveloperPanel({ developer }) {
       </div>
     </div>
   );
+}
+
+function contentTypeLabel(contentType) {
+  switch (contentType) {
+    case "table":
+      return "Table";
+    case "data_log_row":
+      return "Data Log Row";
+    default:
+      return "Text";
+  }
 }
 
 function Metric({ label, value }) {
