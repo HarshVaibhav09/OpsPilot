@@ -1,3 +1,5 @@
+import gc
+
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 from rank_bm25 import BM25Okapi
@@ -18,7 +20,18 @@ class VectorStore:
         )
 
         self._bm25 = None
-        self._documents = []
+        # Only ids + metadata are kept resident for BM25 bookkeeping --
+        # NOT the full chunk text a second time. Previously this cached
+        # every chunk's full text ("self._documents") on top of what's
+        # already stored in Chroma, meaning the whole corpus's text
+        # existed resident in memory twice (three times counting
+        # BM25Okapi's own internal tokenized stats), and that cache
+        # grew with every document ever ingested -- a compounding
+        # memory cost as the corpus grows. Chunk text is now fetched
+        # from Chroma on demand, only for the handful of BM25-only
+        # hits that need it per query.
+        self._ids: list[str] = []
+        self._metadatas: list[dict] = []
         self._bm25_dirty = True
 
     def add_chunks(
@@ -96,24 +109,28 @@ class VectorStore:
         bm25_added = 0
 
         for idx, _ in bm25_rank:
-
-            item = self._documents[idx]
-            meta = item["metadata"]
+            meta = self._metadatas[idx]
 
             if doc_id and meta["doc_id"] != doc_id:
                 continue
 
             bm25_added += 1
-
-            key = (
-                meta["doc_id"],
-                meta["chunk_id"],
-            )
+            key = (meta["doc_id"], meta["chunk_id"])
 
             if key not in fused:
+                # Only fetch text for chunks BM25 found that dense
+                # search didn't already return -- this is a handful of
+                # small, targeted lookups per query, not a resident
+                # copy of the whole corpus.
+                fetched = self.collection.get(
+                    ids=[self._ids[idx]],
+                    include=["documents"],
+                )
+                text = fetched["documents"][0] if fetched["documents"] else ""
+
                 fused[key] = {
                     "rrf": 0,
-                    "document": item["text"],
+                    "document": text,
                     "metadata": meta,
                     "distance": 1.0,
                 }
@@ -147,20 +164,23 @@ class VectorStore:
 
         documents = data.get("documents", [])
         metadatas = data.get("metadatas", [])
+        ids = data.get("ids", [])
 
-        self._documents = [
-            {
-                "text": doc,
-                "metadata": meta,
-            }
-            for doc, meta in zip(documents, metadatas)
-        ]
+        self._ids = ids
+        self._metadatas = metadatas
 
         self._bm25 = (
             BM25Okapi([doc.lower().split() for doc in documents])
             if documents
             else None
         )
+
+        # `documents` (the full corpus's raw text) was only needed to
+        # build the BM25 index above -- BM25Okapi retains word-frequency
+        # statistics internally, not the raw text itself, so there's no
+        # reason to keep this list resident afterward.
+        del documents
+        gc.collect()
 
     def delete_document(self, doc_id: str):
         self.collection.delete(where={"doc_id": doc_id})

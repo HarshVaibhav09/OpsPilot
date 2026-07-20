@@ -1,4 +1,5 @@
 import concurrent.futures
+import gc
 
 from fastapi import APIRouter, BackgroundTasks, File, HTTPException, UploadFile
 
@@ -61,43 +62,59 @@ async def upload_documents(
 def _run_ingestion_job(job_id: str, files: list[tuple[str, bytes]]):
     mark_job_status(job_id, JobStatus.PROCESSING)
 
-    for filename, content in files:
+    # Pop files off the list as they're processed, instead of iterating
+    # over it with a for-loop, so each file's raw bytes are released as
+    # soon as it's done -- rather than every file in a multi-file batch
+    # staying resident in memory for the whole duration of the job.
+    while files:
+        filename, content = files.pop(0)
         update_file_status(job_id, filename, JobStatus.PROCESSING)
+
         try:
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                future = executor.submit(ingest_document, content, filename)
-                result = future.result(timeout=INGESTION_TIMEOUT_SECONDS)
+            try:
+                # max_workers=1: only one task is ever submitted to this
+                # executor, so there's no reason to let it default to
+                # min(32, cpu_count() + 4) potential worker threads.
+                with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                    future = executor.submit(ingest_document, content, filename)
+                    result = future.result(timeout=INGESTION_TIMEOUT_SECONDS)
 
-            chunks = result.pop("chunks")
-            update_file_status(job_id, filename, JobStatus.COMPLETED, result=result)
+                chunks = result.pop("chunks")
+                update_file_status(job_id, filename, JobStatus.COMPLETED, result=result)
 
-        except concurrent.futures.TimeoutError:
-            update_file_status(
-                job_id, filename, JobStatus.FAILED,
-                error=f"Processing '{filename}' took too long and was stopped.",
-            )
-            continue
-        except ValueError as e:
-            update_file_status(job_id, filename, JobStatus.FAILED, error=str(e))
-            continue
-        except Exception as e:
-            update_file_status(
-                job_id, filename, JobStatus.FAILED,
-                error=f"Failed to process '{filename}': {e}",
-            )
-            continue
+            except concurrent.futures.TimeoutError:
+                update_file_status(
+                    job_id, filename, JobStatus.FAILED,
+                    error=f"Processing '{filename}' took too long and was stopped.",
+                )
+                continue
+            except ValueError as e:
+                update_file_status(job_id, filename, JobStatus.FAILED, error=str(e))
+                continue
+            except Exception as e:
+                update_file_status(
+                    job_id, filename, JobStatus.FAILED,
+                    error=f"Failed to process '{filename}': {e}",
+                )
+                continue
 
-        # Contradiction analysis is a separate, non-critical step.
-        # If it fails, the document stays marked as successfully ingested —
-        # only the analysis itself is skipped.
-        try:
-            analyze_document(
-                doc_id=result["doc_id"],
-                filename=filename,
-                chunks=chunks,
-            )
-        except Exception as e:
-            print(f"Contradiction analysis failed for '{filename}': {e}")
+            # Contradiction analysis is a separate, non-critical step.
+            # If it fails, the document stays marked as successfully ingested --
+            # only the analysis itself is skipped.
+            try:
+                analyze_document(
+                    doc_id=result["doc_id"],
+                    filename=filename,
+                    chunks=chunks,
+                )
+            except Exception as e:
+                print(f"Contradiction analysis failed for '{filename}': {e}")
+
+        finally:
+            # Runs whether this file succeeded, failed, or timed out --
+            # releases the raw PDF bytes, extracted pages, and chunk
+            # data for this file before the next one in the batch starts.
+            gc.collect()
 
     finalize_job(job_id)
 
