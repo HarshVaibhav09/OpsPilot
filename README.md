@@ -1,6 +1,6 @@
 # OpsPilot
 
-A document intelligence assistant for logistics ops teams. Upload your rate cards, SOPs, vendor contracts, and compliance circulars, and just ask questions instead of Ctrl+F-ing through 50-page PDFs.
+A document intelligence assistant for logistics ops teams. Upload your rate cards, SOPs, vendor contracts, compliance circulars, incident logs, or fleet reports, and just ask questions instead of digging through PDFs by hand.
 
 Built for the VANCO AI technical assignment.
 
@@ -14,50 +14,42 @@ Built by Harsh Vaibhav.
 
 ## Table of Contents
 
-| Section | Description |
-|---------|-------------|
-| [Overview](#overview) | Brief introduction to OpsPilot |
-| [Features](#features) | Core capabilities of the platform |
-| [Tech Stack](#tech-stack) | Technologies used in the project |
-| [Architecture](#architecture) | High-level system architecture |
-| [Getting Started](#getting-started) | Installation and setup instructions |
-| [Chunking & Retrieval Decisions](#chunking--retrieval-decisions) | Design choices behind document ingestion and retrieval |
-| [Honest Trade-offs](#honest-trade-offs) | Engineering compromises made during development |
-| [Known Limitations](#known-limitations) | Current limitations of the system |
-| [If I Had One More Week](#if-i-had-one-more-week) | Planned improvements and future work |
-| [Future Scope](#future-scope) | Long-term enhancements |
-| [License](#license) | Project license information |
+1. [What It Does](#what-it-does)
+2. [Architecture](#architecture)
+3. [Setup](#setup)
+4. [Chunking and Retrieval — What I Did and Why](#chunking-and-retrieval--what-i-did-and-why)
+5. [Known Limitations](#known-limitations-honestly)
+6. [What I'd Build Next With One More Week](#what-id-build-next-with-one-more-week)
+7. [Tech Stack](#tech-stack)
 
 ---
 
 ## What It Does
 
-- Upload 2-3+ PDFs — it extracts text and tables, chunks them, embeds them, and stores them in a vector DB.
+- Upload 2-3+ PDFs. Each one gets classified by type, then chunked using a strategy that actually fits that type, embedded, and stored for retrieval.
 - Ask questions in a chat interface, grounded strictly in the uploaded documents.
-- Follow-up questions work. Ask "what's the penalty clause?" then "who does it apply to?" and it resolves the second question using the first.
+- Follow-up questions work. Ask "what's the vehicle damage cost of incident INC00000015" then "what's the incident type for that one" and it resolves correctly.
 - Every answer comes with citations back to the source file, page, and section.
-- Each document also gets an automatic contradiction check on upload — if two sections of the same doc disagree on a date, amount, or name, it flags it.
-- A developer mode toggle shows what actually got retrieved: similarity scores, the rewritten query, chunk-level detail — mostly there so I could debug my own retrieval quality, but it's genuinely useful if you're the kind of user who wants to see the receipts.
+- Uploads run in the background. You get a job ID immediately and see live per-file progress, instead of the page freezing while a big PDF gets processed.
+- Each document gets an automatic contradiction check — if two sections of the same doc disagree on a date, amount, or name, it gets flagged. This runs after the document is already usable, not before.
+- A developer mode toggle shows what actually got retrieved: similarity scores, the rewritten query, document type, chunk-level detail. Built this mostly to debug my own retrieval quality, kept it because it's genuinely useful.
 
 ---
 
 ## Architecture
 
-I've attached a hand-drawn version of this below (photo), but here's the flow:
+Diagram attached below (hand-drawn — I worked from the SVG version in the repo if it's hard to read).
 
-Frontend (React, on Vercel) talks to a FastAPI backend (on Railway). The backend splits into two pipelines:
+Frontend (React, Vercel) talks to a FastAPI backend (Railway). The backend splits into two pipelines:
 
-### Ingestion Pipeline
-PDF comes in → PyMuPDF pulls out text and tables page by page → text gets chunked (heading-aware + recursive splitting, more on this below) → everything gets embedded with a sentence-transformers model → lands in a Chroma vector store with a parallel BM25 index for keyword search. The doc also gets sent once to Groq for a contradiction check, and that result is cached.
+**Ingestion pipeline** — a PDF comes in, gets validated against a page limit up front (fails fast instead of grinding for minutes on something too big), then the whole thing runs as a background job so the upload request returns instantly with a job ID. In the background: PyMuPDF pulls text and tables per page, a lightweight classifier figures out what kind of document this actually is (rate card, contract, SOP, invoice, or a data log like an incident register), and the text gets chunked using whichever strategy fits that document type. Everything gets embedded with fastembed and lands in Chroma, with a BM25 index sitting alongside it for keyword search. Once the document is marked ready, contradiction analysis kicks off separately in the background — it doesn't block the document from being usable.
 
-### Chat Pipeline
-User message comes in → if there's prior conversation history, the message gets rewritten into a standalone query (so "who does it apply to?" becomes "who does the penalty clause apply to?") → that standalone query hits hybrid retrieval (dense + BM25 fused) → the top chunks get formatted into context → Groq generates the actual answer. The turn gets saved to a SQLite session store so the next follow-up has history to work with.
+**Chat pipeline** — a message comes in, gets rewritten into a standalone query if there's prior history, hits hybrid retrieval (dense + BM25, fused), the top chunks get formatted into context, and Groq generates the answer. The turn gets saved to SQLite so the next follow-up has something to work with.
 
 **Diagram:**
 
-![Architecture diagram](./architecture-diagram.jpg)
+<img width="2417" height="3004" alt="OpsPilot" src="https://github.com/user-attachments/assets/074624fe-8a96-487a-a0a8-ad1f5ff74340" />
 
-*(hand-drawn — see the SVG version I worked from in the repo if the photo's hard to read)*
 
 ---
 
@@ -85,6 +77,8 @@ CHUNK_OVERLAP=120
 TOP_K_RETRIEVAL=8
 TOP_K_FINAL=5
 
+MAX_PAGES=50
+
 CHROMA_PERSIST_DIR=./data/chroma
 SESSION_DB_PATH=./data/sessions.db
 
@@ -105,6 +99,12 @@ npm install
 npm run dev
 ```
 
+Point it at your backend:
+
+```env
+VITE_API_URL=http://localhost:8080
+```
+
 ### 3. Docker (optional)
 
 There's a `Dockerfile` for both frontend and backend if you'd rather not set up the environment locally.
@@ -113,66 +113,71 @@ There's a `Dockerfile` for both frontend and backend if you'd rather not set up 
 
 ## Chunking and Retrieval — What I Did and Why
 
-### Chunking
+### The problem I actually hit
 
-I didn't just do a flat fixed-size split. Each PDF page gets processed for text and tables separately:
+My first version of this used one chunking strategy for everything — detect headings, split under them, done. It worked fine on well-structured SOPs and contracts. It fell apart on a real logistics document: an 85-page truck utilization report that's basically a giant table with almost no prose headings. Most of it collapsed into one generic "General" bucket, and retrieval got noticeably worse on exactly that document. Given the whole point of this tool is handling messy real-world logistics paperwork, that felt like the wrong thing to leave unfixed.
 
-1. **Tables** get pulled out with PyMuPDF's table detection and kept as whole chunks (converted to markdown), because splitting a table mid-row destroys it for retrieval. You lose the row/column relationship and the chunk becomes useless.
-2. **Text** gets grouped under detected headings first (numbered headings like "3.2 Payment Terms", or ALL-CAPS section titles), then split further with a recursive character splitter (700 chars, 120 overlap).
+### What I do now: classify first, then chunk accordingly
 
-The idea: chunk boundaries should respect document structure where possible, not just cut every N characters blind. A chunk that's half of one section and half of another is confusing for the LLM and for retrieval both.
+Before chunking, each document gets classified into one of five types: **rate card**, **contract**, **SOP**, **invoice**, or **data log** (registers like incident logs or fleet reports — very common in logistics but not something the original brief called out explicitly). Classification is mostly heuristic — keyword scoring plus table density, with a structural check for record-ID patterns (things like `TRK00001` or `INC00000015`) that catches data logs even when they have zero descriptive keywords. If nothing scores confidently, it falls back to one LLM call to classify. I did it this way instead of always calling an LLM to classify, because that's one more Groq call per upload for something a handful of regex checks usually nails for free.
 
-This works well on documents with clear section headers — SOPs, contracts, circulars. It works less well on dense, tabular reports with no clear heading structure (see limitations below).
+Each type gets its own chunking approach:
+- **SOPs/contracts** — heading or clause-pattern based, keeping sections whole where possible.
+- **Rate cards** — skip heading detection entirely, since it just produces false splits on numbers-heavy pages. Tables get pulled out as their own chunks, page context stays separate.
+- **Invoices** — pull out `Key: Value` style fields as one chunk, everything else as a second.
+- **Data logs** — this is the one I'm most proud of getting right. Instead of splitting on newlines, it splits on the record-ID pattern itself, directly in the raw character stream. That matters because PyMuPDF sometimes extracts dense tabular PDFs with rows fused together, no space or line break between them at all. Splitting on newlines would silently cut through the middle of a record. Splitting on the ID pattern survives that. Every resulting chunk also gets the column header line prepended to it, not just the first chunk, so a chunk retrieved from page 40 still tells the model what each number actually means.
+
+Tables get pulled out identically regardless of document type — a table is a table, and splitting one mid-row destroys it for retrieval no matter what kind of document it's in.
 
 ### Retrieval
 
-Hybrid: dense vector search (Chroma, cosine similarity) fused with BM25 keyword search.
+Hybrid: dense vector search (Chroma, cosine similarity) fused with BM25 keyword search, combined with reciprocal rank fusion. Went hybrid because logistics documents are full of exact identifiers — truck IDs, incident IDs, clause numbers — where dense retrieval alone sometimes misses an exact match that BM25 catches instantly, and vice versa for more paraphrased questions.
 
-I went hybrid because logistics documents are full of exact terms that matter — SKU codes, clause numbers, specific vendor names — where pure dense retrieval sometimes misses an exact match that BM25 catches instantly, and vice versa for more semantic/paraphrased questions. Retrieve top 8 candidates, return top 5 after formatting.
+I originally had a cross-encoder reranker planned between retrieval and generation, with scores meant to show up in developer mode. I pulled it — more on why below.
 
-I originally had a reranking step planned between those two numbers — a cross-encoder reranker that would re-score the 8 candidates before truncating to 5, and I even had a `rerank_scores` field wired up to show in developer mode on the frontend. I pulled it out. More on why below.
+### Query rewriting for follow-ups
 
-### Query Rewriting for Follow-Ups
+Before retrieval, if there's conversation history, the question gets rewritten into a standalone query by the LLM. I hit a real bug here during testing: the rewrite prompt didn't explicitly protect exact identifiers, so a follow-up like "what's the incident type for that one" sometimes got rewritten without carrying the actual incident ID forward, and retrieval landed on the wrong chunks. Fixed by being explicit in the rewrite instruction that identifiers, codes, and numbers must be preserved exactly, never paraphrased.
 
-Before retrieval, if there's conversation history, the raw question gets rewritten into a standalone query by the LLM. Retrieval runs on the rewritten query; the original question plus history goes to the final answer-generation call. This is the actual mechanism that makes "and who does it apply to?" work.
+### Embeddings
+
+Switched from sentence-transformers/torch to fastembed partway through. Two reasons: it's noticeably faster on CPU since it runs on ONNX Runtime instead of a full training framework doing inference as an afterthought, and it drops the torch dependency entirely, which was the direct cause of a RAM-related crash on Render's free tier. Also fixed a real correctness bug in the process — fastembed exposes separate methods for embedding documents versus queries, which properly handles the fact that BGE models are trained asymmetrically. My first pass at this used the same method for both and technically worked, just less accurately.
 
 ---
 
 ## Known Limitations (Honestly)
 
-1. **Reranker got cut for memory, not because it didn't help.** I had a cross-encoder reranker between retrieval and generation, with scores meant to show up in developer mode. Backend deployment on Render kept crashing from RAM shortage once I added it — running torch + sentence-transformers + a reranker on a free tier just doesn't fit. I pulled the reranker to get a working deployment instead of a memory-crashed one, and moved the backend to Railway. The retrieval step still retrieves 8 and returns 5, but that final trim is a plain truncation right now, not a reranked one.
+1. **Document classification is heuristic, not guaranteed.** It's right most of the time on documents that clearly belong to one of the five types, but an unusually formatted contract or a hybrid document could get classified as `general` and fall back to the default chunking strategy. I'd rather be upfront about this than claim it's perfect.
 
-2. **Large PDFs are slow, on both ends.** An 85-page PDF takes noticeably longer to upload and chunk than a 10-page one, and that's compounded by the fact that ingestion is fully synchronous — text extraction, chunking, embedding, *and* the LLM contradiction check all happen in the same request before you get a response. On a free-tier host this can feel sluggish, and on a large enough file it risks hitting a request timeout. There's no background job queue or progress indicator right now — you upload and wait.
+2. **Contradiction analysis doesn't make sense yet for data logs.** Running the current contradiction-detection prompt against a 300-row incident log isn't really testing for the same kind of inconsistency it was designed for. Right now it still runs against every document type the same way — this is a real gap I haven't closed yet, not an oversight I'm unaware of.
 
-3. **Answers get a bit less precise on large, structurally flat documents.** I tested this directly with an 85-page truck utilization metrics PDF. Answers on it were occasionally a little off compared to the same kind of question on a well-structured contract or SOP. My read on why: that document is mostly numbers and tables with very few clean section headings, so most of it falls into a generic catch-all section rather than getting properly grouped. Combined with no reranker, retrieval has less signal to work with on documents like this. It's a real gap, not a hypothetical one.
+3. **Reranker got cut for memory, not because it didn't help.** I had a cross-encoder reranker planned, with scores meant to show up in developer mode, and I even had the frontend field wired up for it. Deployment on Render kept OOM-crashing once I added it. I pulled it to ship something that actually works instead of something that looks better on paper but crashes. Retrieval still retrieves 8 candidates and returns 5, but that final trim is a plain truncation right now, not a reranked one.
 
-4. **No background/async ingestion.** Uploading 3 documents means 3 sequential rounds of extraction + embedding + an LLM call, one after another, in a single request.
+4. **Large PDFs still take real time to process**, even with async ingestion. The upload no longer blocks the UI, but classification, chunking, and embedding for an 85-page document still takes a while in absolute terms. There's a per-file timeout (180 seconds) so one bad file can't hang the whole batch, but there's no progress indicator inside a single file's processing — just queued/processing/done at the file level.
 
-5. **Error handling on LLM calls is thinner than it should be.** If Groq rate-limits or times out mid-request, right now that can surface as a raw error rather than a graceful fallback message. The "I couldn't find enough information" path exists for empty retrieval, but not yet for LLM-call failures specifically.
+5. **Error handling on the chat side is thinner than the upload side.** Upload failures are handled gracefully with clear messages. If Groq rate-limits or times out mid-chat-request, that can still surface as a raw error rather than a calm fallback message. I fixed this pattern for ingestion but haven't gotten to it for chat yet.
 
-6. **`doc_id` filtering is all-or-one.** You can scope a question to a single uploaded document or search across everything — there's no way to pick a subset of 2 out of 5 documents.
+6. **`doc_id` filtering is all-or-one.** You can scope a question to a single uploaded document or search across everything — no way to pick a subset of 2 out of 5.
 
-7. **Contradiction analysis is capped and cached in memory.** For very long documents it only looks at the first ~100 chunks, not the whole document, and results are cached in a plain in-memory dict, not a database, so they don't survive a backend restart.
+7. **Vector store and session data live on local disk inside the container.** On a free-tier host without an attached persistent volume, a redeploy can wipe them. Worth knowing before assuming uploaded documents survive indefinitely.
 
 ---
 
 ## What I'd Build Next With One More Week
 
-If I had another week on this, in order of what I'd actually prioritize:
+1. **Bring the reranker back on infrastructure that can hold it**, and finish wiring up the rerank scores in developer mode. Now that fastembed freed up real memory headroom by dropping torch, this is genuinely closer to feasible than it was — I'd want to actually test it properly rather than guess.
 
-1. **Bring the reranker back, properly, on infrastructure that can hold it.** This is the fix I most want to make. I'd either move to a host with more memory headroom or use a much smaller/quantized cross-encoder that fits the free tier, and finish wiring up the `rerank_scores` in developer mode I'd already started building the frontend for. I know exactly what this would look like — I just ran out of memory budget, not ideas.
+2. **Make contradiction analysis type-aware.** Skip it entirely for data logs, or reframe what it's checking for on that document type — something like flagging a row where the numbers don't add up internally (e.g. a utilization rate that doesn't match trips and miles) instead of comparing prose sections against each other.
 
-2. **Fix chunking for tabular/low-structure documents.** The heading-detection approach works for contracts and SOPs but clearly breaks down on dense metrics reports, which is exactly the kind of document a logistics ops team deals with constantly (utilization reports, rate cards). I'd add a fallback strategy — maybe using table density or page layout as a secondary signal for section boundaries when there's no clean heading pattern — so retrieval quality doesn't degrade on exactly the documents this tool is supposed to help with most.
+3. **Harden error handling around the chat LLM calls**, the same way I already did for ingestion. A rate-limited request should degrade to a calm "having trouble right now" message instead of a raw 500, especially given the walkthrough call means someone will actually be live-testing this.
 
-3. **Make ingestion async.** Upload triggers a background job, return immediately with a job ID, and the frontend polls for status (or uses a websocket) instead of blocking the whole request on extraction + embedding + an LLM call. This alone would fix most of the "large PDFs feel slow" problem, even without touching the actual chunking speed.
+4. **Improve classification confidence signals.** Right now it's a binary heuristic-or-LLM-fallback. I'd want to surface a confidence score and let a low-confidence classification be visibly flagged rather than silently defaulting to `general`.
 
-4. **Harden error handling around LLM calls.** Wrap the Groq calls in `chat_service.py` with real fallback behavior instead of letting failures propagate as raw 500s. A rate-limited request should degrade to a calm "having trouble right now, try again" message, the same way an empty-retrieval result already does.
+5. **Let users scope a question to a subset of documents**, not just one or all.
 
-5. **Move the vector store and session DB to actual persistent storage.** Right now they're local files inside the container, which isn't safe against a redeploy or restart on Railway's free tier. I'd move Chroma to a hosted instance (or attach a proper persistent volume) and do the same for the session SQLite file, so a redeploy doesn't wipe every document a user has uploaded.
+6. **Move Chroma and the session DB to real persistent storage** so a redeploy doesn't risk wiping uploaded documents on a free-tier host.
 
-6. **Let users scope a question to a subset of documents**, not just one doc or all of them — closer to how someone actually works when they've got 5+ documents loaded and only care about 2 of them right now.
-
-None of these are "nice to have someday" items to me — they're the exact things I hit walls on this week and had to consciously trade off to ship something that actually works end to end. Given more time, this is the order I'd tackle them in.
+None of these are hypothetical nice-to-haves — they're things I actually hit walls on this week and had to consciously trade off to ship something that works end to end. Given more time, this is the order I'd tackle them in.
 
 ---
 
@@ -180,6 +185,11 @@ None of these are "nice to have someday" items to me — they're the exact thing
 
 | Layer | Tech |
 |---|---|
-| **Backend** | FastAPI, ChromaDB, sentence-transformers (`BAAI/bge-small-en-v1.5`), rank-bm25, PyMuPDF, Groq (`llama-3.3-70b-versatile`), SQLite |
+| **Backend** | FastAPI, ChromaDB, fastembed (`BAAI/bge-small-en-v1.5`), rank-bm25, PyMuPDF, Groq (`llama-3.3-70b-versatile`), SQLite |
 | **Frontend** | React (Vite) |
 | **Deployment** | Railway (backend), Vercel (frontend) |
+
+
+
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/HarshVaibhav09/OpsPilot)
