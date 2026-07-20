@@ -12,13 +12,22 @@ from app.core.config import settings
 # even if no one uploaded anything. That wastes memory on a small server.
 _embedder: TextEmbedding | None = None
 
-DEFAULT_EMBED_BATCH_SIZE = 16
+DEFAULT_EMBED_BATCH_SIZE = settings.embed_batch_size
 
 
 def _get_embedder() -> TextEmbedding:
     global _embedder
     if _embedder is None:
-        _embedder = TextEmbedding(model_name=settings.embedding_model)
+        # threads=1: caps how many CPU threads the embedding model's
+        # ONNX runtime uses internally. Railway's free tier gives 2
+        # vCPUs -- letting onnxruntime auto-detect and spin up more
+        # parallel worker threads than that just adds memory overhead
+        # (each thread carries its own working buffers) without any
+        # real speed benefit on a container this small.
+        _embedder = TextEmbedding(
+            model_name=settings.embedding_model,
+            threads=1,
+        )
     return _embedder
 
 

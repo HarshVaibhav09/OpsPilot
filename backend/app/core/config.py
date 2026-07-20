@@ -19,6 +19,12 @@ class Settings(BaseSettings):
 
     # Embeddings
     embedding_model: str = "BAAI/bge-small-en-v1.5"
+    # How many chunks are embedded and saved at once during ingestion.
+    # Lower = less peak memory per batch, more (small) embedding calls.
+    # Tunable via env var without a code change -- useful if a
+    # particularly heavy document still runs the memory close on
+    # Railway's free tier and you want to try a smaller value.
+    embed_batch_size: int = 12
 
     # Chunking
     chunk_size: int = 700

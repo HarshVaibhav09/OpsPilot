@@ -16,7 +16,17 @@ class VectorStore:
 
         self.collection = self.client.get_or_create_collection(
             name="opspilot_chunks",
-            metadata={"hnsw:space": "cosine"},
+            metadata={
+                "hnsw:space": "cosine",
+                # Leaner index graph -- fewer connections per vector
+                # (hnsw:M) and a smaller build-time search list
+                # (hnsw:construction_ef) than Chroma's defaults (16 and
+                # 200). Uses meaningfully less RAM per vector at a
+                # small, usually unnoticeable recall cost -- a
+                
+                "hnsw:M": 8,
+                "hnsw:construction_ef": 100,
+            },
         )
 
         self._bm25 = None
