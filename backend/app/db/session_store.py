@@ -61,12 +61,12 @@ class SessionStore:
     def get_history(
         self,
         session_id: str,
-        limit: int = 6,
+        limit: int = 12,
     ) -> list[dict]:
         with sqlite3.connect(self.db_path) as conn:
             rows = conn.execute(
                 """
-                SELECT role, content
+                SELECT role, content, standalone_query
                 FROM messages
                 WHERE session_id = ?
                 ORDER BY id DESC
@@ -79,8 +79,9 @@ class SessionStore:
             {
                 "role": role,
                 "content": content,
+                "standalone_query": standalone_query,
             }
-            for role, content in reversed(rows)
+            for role, content, standalone_query in reversed(rows)
         ]
 
     def clear_session(self, session_id: str) -> None:

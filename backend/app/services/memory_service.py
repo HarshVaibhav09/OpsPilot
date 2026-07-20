@@ -3,7 +3,7 @@ from app.db.session_store import session_store
 
 def get_recent_history(
     session_id: str,
-    limit: int = 6,
+    limit: int = 12,
 ) -> list[dict]:
     return session_store.get_history(
         session_id=session_id,

@@ -154,17 +154,42 @@ def _format_context(
     )
 
 
-def _format_history(
-    history: list[dict],
-) -> str:
+def _format_history(history):
 
     if not history:
-        return "(no previous conversation)"
+        return "No previous conversation."
 
-    return "\n".join(
-        f"{item['role']}: {item['content']}"
-        for item in history
-    )
+    lines = ["Previous Conversation:\n"]
+
+    for item in history:
+
+        speaker = (
+            "User"
+            if item["role"] == "user"
+            else "Assistant"
+        )
+
+        if (
+            speaker == "User"
+            and item.get("standalone_query")
+        ):
+
+            lines.append(
+                f"""User:
+                Original Question: {item['content']}
+                Resolved Question: {item['standalone_query']}
+                """
+            )
+
+        else:
+
+            lines.append(
+                f"""{speaker}:
+                {item['content']}
+                """
+            )
+
+    return "\n".join(lines)
 
 
 def _build_citations(

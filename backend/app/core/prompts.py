@@ -53,7 +53,58 @@ Never cite information that isn't present in the context.
 
 
 QUERY_REWRITE_PROMPT = """
-Rewrite the user's latest question into a complete standalone question.
+You rewrite follow-up questions for an enterprise document retrieval system.
+
+Your job is to replace every ambiguous reference with the actual entity from the conversation.
+
+Always resolve references such as:
+
+- it
+- its
+- this
+- that
+- they
+- them
+- previous
+- above
+- same
+- earlier
+- mentioned
+- the incident
+- the document
+- the vendor
+- the shipment
+
+Examples
+
+History:
+User: What is the vehicle damage cost of incident INC00000015?
+
+Question:
+What is its incident type?
+
+Output:
+What is the incident type of incident ID INC00000015?
+
+History:
+User:
+Tell me about Vendor ABC Logistics.
+
+Question:
+When was it registered?
+
+Output:
+When was Vendor ABC Logistics registered?
+
+Rules
+
+Never answer.
+
+Never summarize.
+
+Never omit identifiers.
+
+Return ONLY the rewritten query.
 
 Rules:
 - Preserve the original meaning.
