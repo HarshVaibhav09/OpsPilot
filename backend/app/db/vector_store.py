@@ -18,12 +18,8 @@ class VectorStore:
             name="opspilot_chunks",
             metadata={
                 "hnsw:space": "cosine",
-                # Leaner index graph -- fewer connections per vector
-                # (hnsw:M) and a smaller build-time search list
-                # (hnsw:construction_ef) than Chroma's defaults (16 and
-                # 200). Uses meaningfully less RAM per vector at a
-                # small, usually unnoticeable recall cost -- a
-                
+                # Leaner index graph than Chroma's defaults (16/200) --
+                # less RAM per vector at a small recall cost.
                 "hnsw:M": 8,
                 "hnsw:construction_ef": 100,
             },
@@ -31,15 +27,8 @@ class VectorStore:
 
         self._bm25 = None
         # Only ids + metadata are kept resident for BM25 bookkeeping --
-        # NOT the full chunk text a second time. Previously this cached
-        # every chunk's full text ("self._documents") on top of what's
-        # already stored in Chroma, meaning the whole corpus's text
-        # existed resident in memory twice (three times counting
-        # BM25Okapi's own internal tokenized stats), and that cache
-        # grew with every document ever ingested -- a compounding
-        # memory cost as the corpus grows. Chunk text is now fetched
-        # from Chroma on demand, only for the handful of BM25-only
-        # hits that need it per query.
+        # chunk text is fetched from Chroma on demand for the handful of
+        # BM25-only hits that need it per query, not cached a second time.
         self._ids: list[str] = []
         self._metadatas: list[dict] = []
         self._bm25_dirty = True
@@ -64,11 +53,12 @@ class VectorStore:
         query_embedding: list[float],
         top_k: int,
         doc_id: str | None = None,
+        document_type: str | None = None,
     ):
         return self.collection.query(
             query_embeddings=[query_embedding],
             n_results=top_k,
-            where={"doc_id": doc_id} if doc_id else None,
+            where=_build_where(doc_id, document_type),
         )
 
     def hybrid_query(
@@ -77,6 +67,7 @@ class VectorStore:
         query_embedding: list[float],
         top_k: int,
         doc_id: str | None = None,
+        document_type: str | None = None,
     ):
         self._ensure_bm25()
 
@@ -84,6 +75,7 @@ class VectorStore:
             query_embedding=query_embedding,
             top_k=top_k * 2,
             doc_id=doc_id,
+            document_type=document_type,
         )
 
         if not self._bm25:
@@ -124,14 +116,16 @@ class VectorStore:
             if doc_id and meta["doc_id"] != doc_id:
                 continue
 
+            if document_type and meta.get("document_type") != document_type:
+                continue
+
             bm25_added += 1
             key = (meta["doc_id"], meta["chunk_id"])
 
             if key not in fused:
-                # Only fetch text for chunks BM25 found that dense
-                # search didn't already return -- this is a handful of
-                # small, targeted lookups per query, not a resident
-                # copy of the whole corpus.
+                # Only fetch text for chunks BM25 found that dense search
+                # didn't already return -- a handful of targeted lookups
+                # per query, not a resident copy of the whole corpus.
                 fetched = self.collection.get(
                     ids=[self._ids[idx]],
                     include=["documents"],
@@ -185,10 +179,8 @@ class VectorStore:
             else None
         )
 
-        # `documents` (the full corpus's raw text) was only needed to
-        # build the BM25 index above -- BM25Okapi retains word-frequency
-        # statistics internally, not the raw text itself, so there's no
-        # reason to keep this list resident afterward.
+        # BM25Okapi retains word-frequency stats internally, not the raw
+        # text -- no reason to keep this list resident afterward.
         del documents
         gc.collect()
 
@@ -217,6 +209,20 @@ class VectorStore:
             doc["chunk_count"] += 1
 
         return list(documents.values())
+
+
+def _build_where(doc_id: str | None, document_type: str | None):
+    conditions = []
+    if doc_id:
+        conditions.append({"doc_id": doc_id})
+    if document_type:
+        conditions.append({"document_type": document_type})
+
+    if not conditions:
+        return None
+    if len(conditions) == 1:
+        return conditions[0]
+    return {"$and": conditions}
 
 
 vector_store = VectorStore()

@@ -28,6 +28,7 @@ class ChatRequest(BaseModel):
     developer_mode: bool = False
     hybrid_search: bool = True
     doc_id: Optional[str] = None
+    document_type: Optional[str] = None
 
 
 class Conflict(BaseModel):
@@ -55,6 +56,7 @@ class DeveloperInfo(BaseModel):
     avg_similarity: float
     context_length: int
     hybrid_search: bool
+    document_type_filter: Optional[str] = None
     retrieved_chunks: list[dict]
 
 

@@ -147,10 +147,6 @@ function DeveloperPanel({ developer }) {
                 <span>
                   Type: {contentTypeLabel(chunk.content_type)}
                 </span>
-
-                <span>
-                  Doc type: {chunk.document_type || "general"}
-                </span>
             </div>
 
             <div

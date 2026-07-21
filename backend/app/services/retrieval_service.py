@@ -6,6 +6,7 @@ from app.services.embedding_service import embed_query
 def retrieve_chunks(
     query: str,
     doc_id: str | None = None,
+    document_type: str | None = None,
     hybrid: bool = True,
 ) -> list[dict]:
 
@@ -17,12 +18,14 @@ def retrieve_chunks(
             query_embedding=query_embedding,
             top_k=settings.top_k_retrieval,
             doc_id=doc_id,
+            document_type=document_type,
         )
         if hybrid
         else vector_store.query(
             query_embedding=query_embedding,
             top_k=settings.top_k_retrieval,
             doc_id=doc_id,
+            document_type=document_type,
         )
     )
 

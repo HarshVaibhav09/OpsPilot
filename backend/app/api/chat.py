@@ -30,6 +30,7 @@ def send_message(request: ChatRequest):
             developer_mode=request.developer_mode,
             hybrid_search=request.hybrid_search,
             doc_id=request.doc_id,
+            document_type=request.document_type,
         )
 
         return ChatResponse(

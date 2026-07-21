@@ -19,6 +19,7 @@ def handle_chat_message(
     developer_mode: bool = False,
     hybrid_search: bool = True,
     doc_id: str | None = None,
+    document_type: str | None = None,
 ) -> dict:
 
     history = get_recent_history(session_id)
@@ -27,6 +28,7 @@ def handle_chat_message(
     chunks = retrieve_chunks(
         query=standalone_query,
         doc_id=doc_id,
+        document_type=document_type,
         hybrid=hybrid_search,
     )
 
@@ -110,6 +112,7 @@ def handle_chat_message(
             ),
             "context_length": len(context),
             "hybrid_search": hybrid_search,
+            "document_type_filter": document_type,
             "retrieved_chunks": chunks,
         }
     return response
