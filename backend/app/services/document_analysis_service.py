@@ -224,7 +224,7 @@ def analyze_document(
         chunks,
         key=lambda c: (
             c["metadata"].get("page", 0),
-            c["metadata"].get("chunk_index", 0),
+            c["metadata"].get("chunk_id", 0),
         ),
     )
 
