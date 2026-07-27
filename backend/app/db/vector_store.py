@@ -18,10 +18,8 @@ class VectorStore:
             name="opspilot_chunks",
             metadata={
                 "hnsw:space": "cosine",
-                # Leaner index graph than Chroma's defaults (16/200) --
-                # less RAM per vector at a small recall cost.
                 "hnsw:M": 16,
-                "hnsw:construction_ef": 100,
+                "hnsw:construction_ef": 200,
             },
         )
 
