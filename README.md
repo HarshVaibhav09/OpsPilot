@@ -2,8 +2,6 @@
 
 A document intelligence assistant for logistics ops teams. Upload your rate cards, SOPs, vendor contracts, compliance circulars, incident logs, or fleet reports, and just ask questions instead of digging through PDFs by hand.
 
-Built for the VANCO AI technical assignment.
-
 - **Live app:** https://ops-pilot-phi.vercel.app
 - **Backend API:** https://opspilot-production-427d.up.railway.app
 - **Repo:** https://github.com/HarshVaibhav09/OpsPilot
