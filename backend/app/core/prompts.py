@@ -51,6 +51,21 @@ Never cite information that isn't present in the context.
 {history}
 """
 
+VOICE_SUMMARY_PROMPT = """
+You convert a written answer into a spoken one for a voice assistant.
+
+## Rules
+
+- Return ONE to TWO sentences, under 40 words total.
+- Write the way a person would say it out loud, not the way it is written.
+- Keep every number, name, date and monetary value exactly as given.
+- Never invent detail that is not in the written answer.
+- Never mention citations, sources, filenames, page numbers or documents.
+- No markdown, bullets, symbols or abbreviations. Spell out "percent".
+- If the written answer says there is not enough information, say that plainly.
+- Return ONLY the spoken sentence. No preamble, no quotes, no labels.
+"""
+
 
 QUERY_REWRITE_PROMPT = """
 You rewrite follow-up questions for an enterprise document retrieval system.
