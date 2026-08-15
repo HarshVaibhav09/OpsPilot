@@ -56,7 +56,7 @@ You convert a written answer into a spoken one for a voice assistant.
 
 ## Rules
 
-- Return ONE to TWO sentences, under 40 words total.
+- Return TWO to THREE sentences, under 55 words total.
 - Write the way a person would say it out loud, not the way it is written.
 - Keep every number, name, date and monetary value exactly as given.
 - Never invent detail that is not in the written answer.

@@ -5,6 +5,41 @@ import CitationCard from "./CitationCard";
 import DeveloperPanel from "./DeveloperPanel";
 import DocumentAnalysisCard from "./DocumentAnalysisCard";
 
+function SpokenTag() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "5px",
+        marginBottom: "6px",
+        fontSize: "11px",
+        letterSpacing: "0.03em",
+        textTransform: "uppercase",
+        color: "rgba(255,255,255,0.75)",
+      }}
+    >
+      <svg
+        width="11"
+        height="11"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <rect x="9" y="2" width="6" height="11" rx="3" />
+        <path d="M5 10v1a7 7 0 0 0 14 0v-1" />
+        <line x1="12" y1="18" x2="12" y2="22" />
+      </svg>
+
+      <span>Spoken</span>
+    </div>
+  );
+}
+
 function MessageBubble({
   role,
   content,
@@ -12,6 +47,7 @@ function MessageBubble({
   citations = [],
   documentAnalysis = [],
   developer = null,
+  spoken = false,
 }) {
   const isUser = role === "user";
   const [showEvidence, setShowEvidence] = useState(false);
@@ -38,13 +74,17 @@ function MessageBubble({
         }}
       >
         {isUser ? (
-          <div
-            style={{
-              whiteSpace: "pre-wrap",
-              lineHeight: 1.6,
-            }}
-          >
-            {content}
+          <div>
+            {spoken && <SpokenTag />}
+
+            <div
+              style={{
+                whiteSpace: "pre-wrap",
+                lineHeight: 1.6,
+              }}
+            >
+              {content}
+            </div>
           </div>
         ) : (
           <>

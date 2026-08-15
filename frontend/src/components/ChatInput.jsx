@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
 import { unlockAudio } from "../services/audioPlayer";
@@ -26,14 +26,15 @@ function MicIcon({ size = 20 }) {
 function ChatInput({
   onSend,
   loading = false,
+  speaking = false,
 }) {
   const [message, setMessage] = useState("");
 
-  // Phase 4 only -- proves recognition works before it is wired to chat.
-  const [lastTranscript, setLastTranscript] = useState("");
+  const onSendRef = useRef(onSend);
+  onSendRef.current = onSend;
 
   const handleTranscript = useCallback((transcript) => {
-    setLastTranscript(transcript);
+    onSendRef.current(transcript, { spoken: true });
   }, []);
 
   const {
@@ -45,14 +46,16 @@ function ChatInput({
     stopListening,
   } = useSpeechRecognition({ onResult: handleTranscript });
 
+  const busy = loading || speaking;
+
   async function handleSend() {
     const text = message.trim();
 
-    if (!text || loading) return;
+    if (!text || busy) return;
 
     setMessage("");
 
-    await onSend(text);
+    await onSend(text, { spoken: false });
   }
 
   function handleKeyDown(e) {
@@ -70,10 +73,11 @@ function ChatInput({
     if (listening) {
       stopListening({ emit: true });
     } else {
-      setLastTranscript("");
       startListening();
     }
   }
+
+  const micDisabled = !supported || busy;
 
   return (
     <div
@@ -82,14 +86,13 @@ function ChatInput({
         borderTop: "1px solid #e5e7eb",
       }}
     >
-      {(listening || lastTranscript || error) && (
+      {(listening || error) && (
         <div
           style={{
             padding: "10px 16px",
             borderBottom: "1px solid #f3f4f6",
             fontSize: "13px",
             color: error ? "#b91c1c" : "#6b7280",
-            minHeight: "20px",
           }}
         >
           {error && <span>{error}</span>}
@@ -98,12 +101,6 @@ function ChatInput({
             <span>
               <strong style={{ color: "#dc2626" }}>Listening</strong>
               {interimTranscript && ` — ${interimTranscript}`}
-            </span>
-          )}
-
-          {!error && !listening && lastTranscript && (
-            <span>
-              <strong>Captured:</strong> {lastTranscript}
             </span>
           )}
         </div>
@@ -120,7 +117,7 @@ function ChatInput({
         <textarea
           value={message}
           rows={2}
-          disabled={loading}
+          disabled={busy}
           placeholder="Ask about your uploaded documents..."
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -138,7 +135,7 @@ function ChatInput({
 
         <button
           onClick={handleMicClick}
-          disabled={!supported}
+          disabled={micDisabled}
           title={
             supported
               ? "Speak your question"
@@ -154,8 +151,8 @@ function ChatInput({
             borderRadius: "50%",
             background: listening ? "#dc2626" : "#ffffff",
             color: listening ? "#ffffff" : "#374151",
-            cursor: supported ? "pointer" : "not-allowed",
-            opacity: supported ? 1 : 0.5,
+            cursor: micDisabled ? "not-allowed" : "pointer",
+            opacity: micDisabled ? 0.5 : 1,
             transition: "background 0.15s ease, color 0.15s ease",
             animation: listening
               ? "opspilot-mic-pulse 1.4s ease-in-out infinite"
@@ -167,17 +164,17 @@ function ChatInput({
 
         <button
           onClick={handleSend}
-          disabled={loading || !message.trim()}
+          disabled={busy || !message.trim()}
           style={{
             minWidth: "110px",
             height: "44px",
             border: "none",
             borderRadius: "10px",
-            background: loading ? "#93c5fd" : "#2563eb",
+            background: busy ? "#93c5fd" : "#2563eb",
             color: "#ffffff",
             fontWeight: "600",
             cursor:
-              loading || !message.trim()
+              busy || !message.trim()
                 ? "not-allowed"
                 : "pointer",
           }}

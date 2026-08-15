@@ -46,7 +46,7 @@ SYMBOL_REPLACEMENTS = {
 # Below this length an answer is already speakable, so the summarizing
 # LLM call is skipped -- it would cost a full round-trip to shorten
 # something that is short already.
-SUMMARY_THRESHOLD_CHARS = 180
+SUMMARY_THRESHOLD_CHARS = 500
 
 
 def _normalize_symbols(text: str) -> str:
