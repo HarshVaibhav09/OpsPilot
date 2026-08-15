@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     # LLM
     llm_provider: str = "groq"
     llm_api_key: str
-    llm_model: str = "llama-3.3-70b-versatile"
+    llm_model: str
 
     # Embeddings
     embedding_model: str = "BAAI/bge-small-en-v1.5"
@@ -50,5 +50,7 @@ class Settings(BaseSettings):
     # should be short -- this also stops a runaway LLM response from
     # generating a minute of audio.
     tts_max_chars: int = 600
+    tts_summary_model: str = "openai/gpt-oss-20b"
+    tts_cache_size: int = 50
 
 settings = Settings()
