@@ -17,3 +17,4 @@ langchain-text-splitters==0.3.2
 rank-bm25==0.2.2
 
 PyMuPDF==1.25.1
+edge-tts==7.0.2

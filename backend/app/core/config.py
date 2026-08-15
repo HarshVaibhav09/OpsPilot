@@ -44,5 +44,11 @@ class Settings(BaseSettings):
     # Frontend
     cors_origins: str = "http://localhost:5173"
 
+    # Voice / TTS
+    tts_voice: str = "en-GB-SoniaNeural"
+    # Hard cap on characters sent to the TTS engine. Spoken answers
+    # should be short -- this also stops a runaway LLM response from
+    # generating a minute of audio.
+    tts_max_chars: int = 600
 
 settings = Settings()

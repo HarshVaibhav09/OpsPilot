@@ -30,7 +30,9 @@ class ChatRequest(BaseModel):
     doc_id: Optional[str] = None
     document_type: Optional[str] = None
 
-
+class VoiceSpeakRequest(BaseModel):
+    text: str
+    
 class Conflict(BaseModel):
     topic: str
     page_a: int

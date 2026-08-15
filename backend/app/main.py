@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import chat, documents
+from app.api import chat, documents, voice
 from app.core.config import settings
 
 app = FastAPI(
@@ -20,7 +20,7 @@ app.add_middleware(
 
 app.include_router(documents.router)
 app.include_router(chat.router)
-
+app.include_router(voice.router)
 
 @app.get("/")
 def root():
