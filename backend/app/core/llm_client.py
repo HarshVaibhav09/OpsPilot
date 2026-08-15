@@ -17,10 +17,11 @@ class LLMClient:
         system_prompt: str,
         user_message: str,
         temperature: float = 0.2,
+        model: str | None = None,
     ) -> str:
 
         payload = {
-            "model": settings.llm_model,
+            "model": model or settings.llm_model,
             "messages": [
                 {
                     "role": "system",
