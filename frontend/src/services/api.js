@@ -60,3 +60,27 @@ export function sendMessage(payload) {
 export function getChatHistory(sessionId) {
   return request(`/chat/${sessionId}/history`);
 }
+
+async function requestBlob(endpoint, options = {}) {
+  const response = await fetch(`${BASE_URL}${endpoint}`, options);
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+
+    throw new Error(
+      data.detail || `Request failed (${response.status})`
+    );
+  }
+
+  return response.blob();
+}
+
+export function synthesizeSpeech(text) {
+  return requestBlob("/voice/speak", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ text }),
+  });
+}

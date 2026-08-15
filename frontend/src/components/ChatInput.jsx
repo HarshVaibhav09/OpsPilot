@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+import { synthesizeSpeech } from "../services/api";
+import { unlockAudio, playAudioBlob } from "../services/audioPlayer";
+
 function ChatInput({
   onSend,
   loading = false,
@@ -20,6 +23,22 @@ function ChatInput({
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
+    }
+  }
+
+  // Temporary -- Phase 3 only. Verifies TTS playback in isolation before
+  // speech recognition is wired in. Removed in Phase 5.
+  async function handleTestSpeak() {
+    unlockAudio();
+
+    try {
+      const blob = await synthesizeSpeech(
+        "The vehicle damage cost is four thousand two hundred dollars."
+      );
+
+      await playAudioBlob(blob);
+    } catch (error) {
+      console.error("Speak failed:", error);
     }
   }
 
@@ -52,6 +71,22 @@ function ChatInput({
           outline: "none",
         }}
       />
+
+      <button
+        onClick={handleTestSpeak}
+        style={{
+          minWidth: "90px",
+          height: "44px",
+          border: "1px solid #d1d5db",
+          borderRadius: "10px",
+          background: "#ffffff",
+          color: "#374151",
+          fontWeight: "600",
+          cursor: "pointer",
+        }}
+      >
+        Test TTS
+      </button>
 
       <button
         onClick={handleSend}
