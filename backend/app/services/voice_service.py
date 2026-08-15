@@ -47,7 +47,7 @@ SYMBOL_REPLACEMENTS = {
 # LLM call is skipped -- it would cost a full round-trip to shorten
 # something that is short already.
 SUMMARY_THRESHOLD_CHARS = 500
-
+_speech_cache = {}
 
 def _normalize_symbols(text: str) -> str:
     for symbol, spoken in SYMBOL_REPLACEMENTS.items():
@@ -110,7 +110,8 @@ def summarize_for_speech(text: str) -> str:
         spoken = llm_client.generate(
             system_prompt=VOICE_SUMMARY_PROMPT,
             user_message=text,
-            temperature=0.3,
+            temperature=0.1,
+            model=settings.tts_summary_model,
         )
 
     except RuntimeError:
