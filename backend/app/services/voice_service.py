@@ -1,5 +1,5 @@
 import re
-
+import httpx
 import edge_tts
 
 from app.core.config import settings
@@ -127,14 +127,41 @@ def summarize_for_speech(text: str) -> str:
     return spoken
 
 
-async def synthesize_speech(text: str) -> bytes:
-    """Convert text to MP3 audio bytes using Microsoft Edge neural voices."""
+ELEVENLABS_URL = "https://api.elevenlabs.io/v1/text-to-speech"
 
-    spoken = summarize_for_speech(text)
 
-    if not spoken:
-        raise ValueError("No speakable text remained after cleaning.")
+def _synthesize_elevenlabs(spoken: str) -> bytes:
+    if not settings.elevenlabs_api_key or not settings.elevenlabs_voice_id:
+        raise RuntimeError("ElevenLabs is not configured.")
 
+    with httpx.Client(timeout=30.0) as client:
+        print(f"[voice] eleven voice_id={settings.elevenlabs_voice_id!r} key_len={len(settings.elevenlabs_api_key)}")
+        response = client.post(
+            f"{ELEVENLABS_URL}/{settings.elevenlabs_voice_id}",
+            headers={
+                "xi-api-key": settings.elevenlabs_api_key,
+                "Content-Type": "application/json",
+            },
+            json={
+                "text": spoken,
+                "model_id": settings.elevenlabs_model,
+                "voice_settings": {
+                    "stability": settings.elevenlabs_stability,
+                    "similarity_boost": settings.elevenlabs_similarity,
+                    "style": 0.0,
+                    "speed": settings.elevenlabs_speed,
+                },
+            },
+        )
+
+        if response.status_code != 200:
+            print(f"[voice] eleven FAILED {response.status_code}: {response.text}")
+            response.raise_for_status()
+        print(f"[voice] eleven OK, {len(response.content)} bytes")
+        return response.content
+
+
+async def _synthesize_edge(spoken: str) -> bytes:
     communicate = edge_tts.Communicate(
         text=spoken,
         voice=settings.tts_voice,
@@ -146,7 +173,40 @@ async def synthesize_speech(text: str) -> bytes:
         if chunk["type"] == "audio":
             audio.extend(chunk["data"])
 
+    return bytes(audio)
+
+
+async def synthesize_speech(text: str) -> tuple[bytes, str]:
+    """Return (audio_bytes, spoken_text) for a written answer.
+
+    The spoken text is returned alongside the audio so the caller can
+    hand it to a client-side fallback when synthesis fails.
+    """
+    print(f"[voice] provider={settings.tts_provider!r}")
+    cache_key = f"{settings.tts_provider}:{text[:500]}"
+
+    if cache_key in _speech_cache:
+        return _speech_cache[cache_key]
+
+    spoken = summarize_for_speech(text)
+
+    if not spoken:
+        raise ValueError("No speakable text remained after cleaning.")
+
+    if settings.tts_provider == "elevenlabs":
+        audio = _synthesize_elevenlabs(spoken)
+    else:
+        audio = await _synthesize_edge(spoken)
+
     if not audio:
         raise RuntimeError("TTS engine returned no audio.")
 
-    return bytes(audio)
+    result = (audio, spoken)
+
+    # Simple FIFO eviction -- this is a latency cache, not a store.
+    if len(_speech_cache) >= settings.tts_cache_size:
+        _speech_cache.pop(next(iter(_speech_cache)))
+
+    _speech_cache[cache_key] = result
+
+    return result

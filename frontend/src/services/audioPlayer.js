@@ -69,3 +69,29 @@ export function playAudioBlob(blob) {
     });
   });
 }
+
+export function speakWithBrowser(text) {
+  return new Promise((resolve) => {
+    if (!text || typeof window.speechSynthesis === "undefined") {
+      resolve();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-GB";
+    utterance.rate = 1.0;
+
+    utterance.onend = () => resolve();
+    utterance.onerror = () => resolve();
+
+    window.speechSynthesis.speak(utterance);
+  });
+}
+
+export function stopBrowserSpeech() {
+  if (typeof window.speechSynthesis !== "undefined") {
+    window.speechSynthesis.cancel();
+  }
+}

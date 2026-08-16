@@ -45,7 +45,18 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:5173"
 
     # Voice / TTS
+    # "edge" is free and unlimited but uses an unofficial Microsoft
+    # endpoint that blocks datacenter IPs -- fine locally, 403s in
+    # production. "elevenlabs" is used in deployment.
+    tts_provider: str = "edge"
     tts_voice: str = "en-GB-SoniaNeural"
+    elevenlabs_api_key: str = ""
+    elevenlabs_voice_id: str = ""
+    elevenlabs_model: str = "eleven_flash_v2_5"
+
+    elevenlabs_stability: float = 0.7
+    elevenlabs_similarity: float = 0.75
+    elevenlabs_speed: float = 1.05
     # Hard cap on characters sent to the TTS engine. Spoken answers
     # should be short -- this also stops a runaway LLM response from
     # generating a minute of audio.

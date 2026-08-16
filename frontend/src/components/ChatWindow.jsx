@@ -5,7 +5,7 @@ import {
   sendMessage,
   synthesizeSpeech,
 } from "../services/api";
-import { playAudioBlob, stopAudio } from "../services/audioPlayer";
+import { playAudioBlob, speakWithBrowser, stopBrowserSpeech, stopAudio } from "../services/audioPlayer";
 import ChatInput from "./ChatInput";
 import MessageBubble from "./MessageBubble";
 
@@ -54,8 +54,12 @@ function ChatWindow({
   }, [messages, loading]);
 
   // Stop any audio still playing if the component unmounts mid-answer.
+  // Stop any audio still playing if the component unmounts mid-answer.
   useEffect(() => {
-    return () => stopAudio();
+    return () => {
+      stopAudio();
+      stopBrowserSpeech();
+    };
   }, []);
 
   async function speakAnswer(answer) {
@@ -65,10 +69,13 @@ function ChatWindow({
       const blob = await synthesizeSpeech(answer);
       await playAudioBlob(blob);
     } catch (err) {
-      // A failed spoken answer is not a failed answer -- the text is
-      // already on screen, so this stays in the console rather than
-      // surfacing as a chat error.
+      // Provider failed -- fall back to browser speech so the voice
+      // turn still completes, just with a less natural voice.
       console.error("Speech playback failed:", err);
+
+      if (err.spokenText) {
+        await speakWithBrowser(err.spokenText);
+      }
     } finally {
       setSpeaking(false);
     }
@@ -76,7 +83,9 @@ function ChatWindow({
 
   async function handleSend(message, { spoken = false } = {}) {
     // A new turn always cancels the previous answer's audio.
+    // A new turn always cancels the previous answer's audio.
     stopAudio();
+    stopBrowserSpeech();
     setSpeaking(false);
 
     const userMessage = {
@@ -126,6 +135,7 @@ function ChatWindow({
 
   function handleStopSpeaking() {
     stopAudio();
+    stopBrowserSpeech();
     setSpeaking(false);
   }
 

@@ -75,12 +75,28 @@ async function requestBlob(endpoint, options = {}) {
   return response.blob();
 }
 
-export function synthesizeSpeech(text) {
-  return requestBlob("/voice/speak", {
+export async function synthesizeSpeech(text) {
+  const response = await fetch(`${BASE_URL}/voice/speak`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ text }),
   });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const detail = data.detail || {};
+
+    const error = new Error(
+      detail.message || `Speech request failed (${response.status})`
+    );
+
+    // Carries the cleaned text so the caller can speak it locally.
+    error.spokenText = detail.spoken_text || "";
+
+    throw error;
+  }
+
+  return response.blob();
 }
