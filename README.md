@@ -173,55 +173,39 @@ Switched from sentence-transformers/torch to fastembed partway through. Two reas
 
 ## Voice Mode — What I Did and Why
 
-### The design decision: side by side, not voice-only
+### Side by side, not voice-only
 
-The obvious way to build this is to make voice its own mode — you talk, it talks back, done. I deliberately didn't. A voice turn renders as a normal message in the same chat, tagged as spoken, and the assistant's answer appears in full on screen with citations and confidence score intact while a shorter version is read aloud.
+A voice turn renders as a normal message in the same chat, tagged as spoken, with the full written answer and its citations on screen while a shorter version is read aloud. Two reasons: citations are the most defensible thing this app does, and "trust me, I said it out loud" doesn't replace showing which page a number came from. And it keeps one session — ask by voice, follow up by typing, follow up again by voice, and query rewriting resolves references across all of it, because by the time a transcript reaches the backend it's just a string.
 
-Two reasons. First, citations are the most defensible thing this app does, and "trust me, I said it out loud" is not an acceptable substitute for showing which page a number came from. Second, it keeps one session and one history — you can ask by voice, follow up by typing, then follow up again by voice, and query rewriting resolves references across all of it, because by the time a transcript reaches the backend it's just a string.
+### Speech-to-text runs in the browser
 
-### Speech-to-text runs in the browser, not on the server
+I used the browser's `SpeechRecognition` API rather than a server-side model. Free, no quota, no backend load — and I'd already dropped torch once for a RAM crash on Render, so a self-hosted speech model would have walked into the same wall. The tradeoff is real: Chrome/Edge only, flaky in Safari, and nonexistent for a phone call. Anything telephony-shaped needs server-side STT.
 
-I used the browser's built-in `SpeechRecognition` API rather than a server-side model like Whisper. Three reasons: it's free with no quota, it adds zero load to a free-tier backend, and — the deciding one — I'd already had to drop torch once for a RAM crash on Render. Adding a self-hosted speech model would have walked straight back into the same wall.
+### I wrote my own endpointing
 
-The tradeoff is real and I'd change it in production: browser STT is Chrome/Edge only, behaves inconsistently in Safari, and doesn't exist at all for a phone call. Anything telephony-shaped needs server-side STT.
+The browser's end-of-speech detection fires unpredictably, so recognition runs `continuous: true` and I time the silence myself, sending after 1.5 seconds. That number is a product decision, not a constant — too short cuts off anyone pausing to think, too long feels dead. For real users, especially anyone elderly, unwell, or speaking a second language, I'd want it tuned against usage data rather than hardcoded.
 
-### Endpointing: I wrote my own instead of using the browser's
-
-The browser's own end-of-speech detection fires unpredictably — sometimes cutting you off mid-thought, sometimes hanging for seconds. So recognition runs with `continuous: true` and I time the gap since the last result myself, firing the query after 1.5 seconds of silence.
-
-That number is a product decision, not a constant. Too short and it cuts off anyone who pauses to think; too long and every turn feels dead. 1.5s is tuned for how I speak. For a real deployment — especially anything serving people who are elderly, unwell, or speaking a second language — I'd want it configurable and tuned against actual usage data rather than hardcoded.
-
-Two guards came out of testing. An empty transcript closes the mic silently instead of sending a blank query. And a manual stop mid-sentence merges the *interim* transcript into what gets sent — without that, everything said since the last finalised result was being silently dropped, which was a real bug I hit and fixed. Losing a user's most recent words is worse than sending slightly less-refined text.
+Two guards came out of testing: an empty transcript closes the mic silently instead of sending a blank query, and a manual stop merges the *interim* transcript into what gets sent — without that, everything said since the last finalised result was being silently dropped. Losing a user's most recent words is worse than sending slightly rougher text.
 
 ### The spoken answer is not the written answer
 
-A RAG answer full of markdown bullets, bold labels, and `(Source: filename, page 12)` citations sounds terrible read aloud. So the written answer gets rewritten into two or three spoken sentences by a second, smaller LLM call before synthesis, with a strict instruction to preserve every number, name and date exactly.
+Markdown bullets and `(Source: filename, page 12)` citations sound terrible aloud, so the answer gets rewritten into two or three spoken sentences by a smaller, faster model (`gpt-oss-20b`) before synthesis, with strict instructions to preserve every number and name exactly. Short answers skip the call entirely rather than paying a round-trip to shorten something already short, and a regex cleaner acts as fallback when it fails.
 
-That introduces a new hallucination surface — the spoken version could drift from the cited written one — so the written answer stays the source of truth and anything spoken is always verifiable against what's on screen. If I were shipping this for real I'd add an automated check that numbers and named entities in the spoken text also appear in the written text.
+This adds a hallucination surface — the spoken version could drift from the cited written one — so the written answer stays the source of truth and anything spoken is verifiable against what's on screen. In production I'd add an automated check that numbers in the spoken text appear in the written text.
 
-Short answers skip the summarizing call entirely, since paying a full round-trip to shorten something already short is the wrong trade. There's also a regex-based cleaner (strips citations, markdown, filenames, normalizes symbols) that acts as the fallback whenever the summarizing call fails — voice degrades, it doesn't break.
+Answer generation uses the larger `gpt-oss-120b`: different latency-vs-capability tradeoffs at different points in the same pipeline. Both models are recent — Groq decommissioned the Llama models this was built on mid-development, and because model names were config values rather than hardcoded strings, that migration was a two-line environment change.
 
-### Model selection, and a forced migration
+### TTS: three providers, because the first two failed differently
 
-I use a larger model (`gpt-oss-120b`) for answer generation where reasoning quality matters, and a smaller, faster one (`gpt-oss-20b`) for the spoken-summary step, which is compression rather than reasoning. Different latency-vs-capability tradeoffs at different points in the same pipeline.
+`edge-tts` is free, unlimited, and works perfectly on localhost — then returns `403` on Railway, because it uses an unofficial endpoint and Microsoft blocks datacenter IPs. Correct code, wrong environment.
 
-Both are recent. Groq decommissioned the Llama models this was originally built on mid-development. Because model names were always config values rather than hardcoded strings, that migration was a two-line environment change rather than a code edit.
+ElevenLabs surfaced a second constraint: on free tier, community Voice Library voices are blocked via the API (`402 paid_plan_required`), the accessible default voices are being deprecated, and the quota is 10,000 characters a month.
 
-### TTS: three providers, because the first two both failed in different ways
+What shipped: provider is an environment variable — `edge` locally so development costs nothing, `elevenlabs` in production. If the provider fails, the endpoint hands the cleaned text back to the browser, which reads it with `SpeechSynthesis`: worse voice, but the turn completes. Audio is cached on provider plus answer text, so repeats cost nothing.
 
-This took the longest and taught me the most.
-
-I started with `edge-tts` — free, unlimited, no API key, and genuinely good neural voices. It works perfectly on localhost. On Railway it returns `403` on the WebSocket handshake, because it uses an unofficial endpoint intended for the Edge browser's read-aloud feature and Microsoft blocks datacenter IP ranges. Correct code, wrong environment.
-
-So I moved to ElevenLabs for production. That surfaced a second constraint: on the free tier, community Voice Library voices are blocked via the API entirely (`402 paid_plan_required`), and the default voices that *are* accessible are scheduled for deprecation. Free tier is also 10,000 characters a month — roughly 28 answers — and non-commercial only.
-
-What shipped: provider is an environment variable. `edge` locally so development costs nothing, `elevenlabs` in production. If the provider fails for any reason, the endpoint hands the cleaned spoken text back to the browser, which reads it with `SpeechSynthesis` — worse voice, but the turn still completes. Synthesized audio is cached keyed on provider plus answer text, so a repeated question costs nothing.
-
-The honest production answer is Azure Speech: 500k free characters a month, an official SLA, and `en-GB-SoniaNeural` is an Azure voice, so the local and production voices would finally match. I'd move to it for anything beyond a short-lived demo.
+The honest production answer is Azure Speech — 500k free characters, an official SLA, and `en-GB-SoniaNeural` is an Azure voice, so local and production would finally match.
 
 ### Measured latency
-
-Per stage, on my machine:
 
 | Stage | Time |
 |---|---|
@@ -230,11 +214,7 @@ Per stage, on my machine:
 | Spoken summary (long answers only) | ~0.7s |
 | Speech synthesis | ~1.0s warm, ~3.0s cold |
 
-Roughly 3.5–4.5s from finishing speaking to hearing a reply. The two biggest levers I haven't pulled: the summary and synthesis calls are sequential round-trips, and synthesis waits for the complete audio file before playback starts.
-
-The first TTS call after an idle period was consistently about three times slower than subsequent ones — connection setup, not generation. In production you'd keep a warm connection or pre-warm on session start.
-
----
+Roughly 3.5–4.5s from finishing speaking to hearing a reply. The two levers I haven't pulled: the summary and synthesis calls are sequential round-trips, and synthesis waits for the complete audio file before playback starts. The first call after idle was consistently ~3× slower — connection setup, not generation.
 
 ## Known Limitations (Honestly)
 
