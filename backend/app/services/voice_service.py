@@ -46,7 +46,7 @@ SYMBOL_REPLACEMENTS = {
 # Below this length an answer is already speakable, so the summarizing
 # LLM call is skipped -- it would cost a full round-trip to shorten
 # something that is short already.
-SUMMARY_THRESHOLD_CHARS = 500
+SUMMARY_THRESHOLD_CHARS = 300
 _speech_cache = {}
 
 def _normalize_symbols(text: str) -> str:
@@ -109,7 +109,7 @@ def summarize_for_speech(text: str) -> str:
     try:
         spoken = llm_client.generate(
             system_prompt=VOICE_SUMMARY_PROMPT,
-            user_message=text,
+            user_message=f"Summarize this in under 50 words for speech:\n\n{text}",
             temperature=0.1,
             model=settings.tts_summary_model,
         )
@@ -121,8 +121,14 @@ def summarize_for_speech(text: str) -> str:
 
     # Guard against a model that ignores the instructions and returns
     # something longer than what we started with.
-    if not spoken or len(spoken) > settings.tts_max_chars:
+    if not spoken:
         return cleaned
+
+    # An over-length summary is still better than truncated raw markdown,
+    # so trim the summary rather than discarding it.
+    if len(spoken) > settings.tts_max_chars:
+        print(f"[voice] over-length summary {len(spoken)} chars, trimming")
+        spoken = clean_for_speech(spoken)
 
     return spoken
 
