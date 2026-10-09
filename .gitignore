@@ -79,3 +79,4 @@ build/
 .huggingface/
 hf_cache/
 *.mp3
+backend/.venv-eval/

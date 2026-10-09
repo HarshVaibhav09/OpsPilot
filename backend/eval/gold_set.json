@@ -1,0 +1,521 @@
+{
+  "version": "1.0",
+  "description": "Retrieval gold set for OpsPilot. 50 queries across the five supported document types, stratified by query style so the dense-vs-hybrid delta is interpretable rather than incidental. Labels are text anchors rather than chunk ids, so the set survives re-chunking; run resolve_labels.py to bind them to the live index.",
+  "corpus": [
+    "sop_vantage_freight.pdf",
+    "rate_card_vantage_freight.pdf",
+    "vendor_contract_silverline.pdf",
+    "safety_incidents.pdf",
+    "invoice_statement_vantage.pdf"
+  ],
+  "query_types": {
+    "paraphrase": "Natural phrasing sharing no rare tokens with the source passage. Dense retrieval should carry these.",
+    "identifier": "Contains an exact code, clause number, form number or record id. BM25 should carry these.",
+    "table_lookup": "Answer lives in a table row or a structured field block rather than prose.",
+    "multi_hop": "Needs two passages, or spans two documents."
+  },
+  "queries": [
+    {
+      "id": "Q01",
+      "query": "how much weight can we put on a truck before it counts as overloaded",
+      "query_type": "paraphrase",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["90% of the rated axle capacity"],
+      "expected_answer": "Load must not exceed 90% of rated axle capacity.",
+      "notes": "Shares no rare tokens with the source line. Pure dense test."
+    },
+    {
+      "id": "Q02",
+      "query": "what is form VFL-LC-02 used for",
+      "query_type": "identifier",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["Loading Compliance Sheet (Form VFL-LC-02)", "VFL-LC-02"],
+      "expected_answer": "It is the Loading Compliance Sheet, signed by the loading supervisor before the gate pass is issued.",
+      "notes": "Hyphenated form code. Embeddings tokenise this poorly, BM25 matches exactly."
+    },
+    {
+      "id": "Q03",
+      "query": "how far can the temperature drift before someone has to be told",
+      "query_type": "paraphrase",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["2 degrees Celsius from the set point", "reported to the depot duty manager"],
+      "expected_answer": "Beyond +/- 2 degrees Celsius from set point, reported to the depot duty manager immediately.",
+      "notes": "Avoids the word 'reefer' deliberately, so the semantic gap is real."
+    },
+    {
+      "id": "Q04",
+      "query": "what do we do when an incident is marked CRITICAL",
+      "query_type": "identifier",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["Regional Operations Head", "written report within four hours"],
+      "expected_answer": "Immediate phone escalation to the Regional Operations Head, followed by a written report within four hours.",
+      "notes": "Answer sits in both the escalation matrix table and the prose above it. Either is acceptable."
+    },
+    {
+      "id": "Q05",
+      "query": "how long do we have to keep cold chain temperature logs",
+      "query_type": "table_lookup",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["Cold-chain temperature logs 3 years Central WMS", "Cold-chain temperature logs"],
+      "expected_answer": "Three years, held in the central WMS.",
+      "notes": "Retention schedule table. Tests that the row survived chunking with its header attached."
+    },
+    {
+      "id": "Q06",
+      "query": "what does circular 16/2025 require for vendor vehicles",
+      "query_type": "identifier",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["AIS-140 GPS tracking device", "Circular 16/2025"],
+      "expected_answer": "Vendor vehicles must carry a valid AIS-140 GPS tracking device before dispatch.",
+      "notes": "Slash-formatted reference, a classic BM25 win."
+    },
+    {
+      "id": "Q07",
+      "query": "when is a truck due for servicing",
+      "query_type": "paraphrase",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["every 10,000 km or 90 days"],
+      "expected_answer": "Every 10,000 km or 90 days, whichever comes first.",
+      "notes": "'servicing' against 'preventive maintenance'."
+    },
+    {
+      "id": "Q08",
+      "query": "what training does a new driver need before going out on his own",
+      "query_type": "paraphrase",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["mandatory 1-day induction covering Sections 3 and 4", "supervised trial run"],
+      "expected_answer": "A one-day induction covering Sections 3 and 4, plus a supervised trial run over at least one full route.",
+      "notes": null
+    },
+    {
+      "id": "Q09",
+      "query": "who do I call at the Bhiwandi depot",
+      "query_type": "table_lookup",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["Bhiwandi Central Hub +91-98200-10001", "+91-98200-10001"],
+      "expected_answer": "Bhiwandi Central Hub, +91-98200-10001, Western zone.",
+      "notes": "Depot directory table."
+    },
+    {
+      "id": "Q10",
+      "query": "what changed in SOP-WD-2026-v2 compared to the previous version",
+      "query_type": "identifier",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["Added vendor-operated vehicle requirements", "revised escalation matrix"],
+      "expected_answer": "It added vendor-operated vehicle requirements and revised the escalation matrix.",
+      "notes": "Version string sits in the revision history table."
+    },
+    {
+      "id": "Q11",
+      "query": "how soon do I have to log an accident after it happens",
+      "query_type": "paraphrase",
+      "document_type": "sop",
+      "source_file": "sop_vantage_freight.pdf",
+      "answer_anchors": ["logged within two hours of"],
+      "expected_answer": "Within two hours of occurrence.",
+      "notes": null
+    },
+    {
+      "id": "Q12",
+      "query": "what's the rate on route VFL-010",
+      "query_type": "identifier",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["VFL-010 Mumbai Nagpur", "VFL-010"],
+      "expected_answer": "Mumbai to Nagpur, Container 40ft, 837 km, Rs 27.60 per km, base fare Rs 1600, GST 12%.",
+      "notes": "One route code against an 85-row table. The hardest class of query for dense retrieval."
+    },
+    {
+      "id": "Q13",
+      "query": "what do we charge when a truck is kept waiting at the dock",
+      "query_type": "paraphrase",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["Detention (per hour beyond 2 hrs free time)", "150 / hour"],
+      "expected_answer": "Rs 150 per hour beyond two hours free time, across all vehicle classes.",
+      "notes": "'kept waiting' against 'detention'."
+    },
+    {
+      "id": "Q14",
+      "query": "how much extra do we charge for reefer cargo",
+      "query_type": "table_lookup",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["Temperature-controlled (reefer) % of base fare 18%", "reefer"],
+      "expected_answer": "18% of base fare.",
+      "notes": "Special handling surcharge table."
+    },
+    {
+      "id": "Q15",
+      "query": "what's the per km rate from Delhi to Jaipur",
+      "query_type": "table_lookup",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["VFL-002 Delhi Jaipur", "Delhi Jaipur LCV"],
+      "expected_answer": "Rs 20.75 per km, LCV 3.5T, 281 km, base fare Rs 775.",
+      "notes": "Route named by cities rather than code, so dense should be competitive here."
+    },
+    {
+      "id": "Q16",
+      "query": "how is the fuel surcharge worked out each month",
+      "query_type": "paraphrase",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["baseline diesel price of Rs. 92 per litre", "FSC increases by 1.5%"],
+      "expected_answer": "Against a Rs 92 per litre diesel baseline; every Rs 2 above it adds 1.5% of base fare.",
+      "notes": "Prose section rather than a table."
+    },
+    {
+      "id": "Q17",
+      "query": "how much detention grace time do Kolkata deliveries get",
+      "query_type": "table_lookup",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["Eastern Zone", "Guwahati, Patna, Ranchi, Siliguri 3 hours"],
+      "expected_answer": "Three hours, since Kolkata sits in the Eastern Zone.",
+      "notes": "City to zone to grace period. Also a good contradiction probe, since the accessorial table quotes 2 hrs free time flat."
+    },
+    {
+      "id": "Q18",
+      "query": "what do we charge for an oversized load",
+      "query_type": "paraphrase",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["Over-dimensional cargo (ODC) Flat, per shipment Rs. 3,500", "Over-dimensional cargo"],
+      "expected_answer": "Rs 3,500 flat per shipment.",
+      "notes": "'oversized' against 'over-dimensional'."
+    },
+    {
+      "id": "Q19",
+      "query": "which routes are billed at 12 percent GST",
+      "query_type": "multi_hop",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["Container (20ft)", "Container (40ft)"],
+      "expected_answer": "Container 20ft and Container 40ft lanes are at 12%; everything else is 5%.",
+      "notes": "Requires generalising across many table rows. Partial credit at best, and that is the honest expectation."
+    },
+    {
+      "id": "Q20",
+      "query": "what's the surcharge on high value shipments",
+      "query_type": "table_lookup",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["High-value cargo (declared value > Rs. 10L)", "0.4%"],
+      "expected_answer": "0.4% of declared value, where declared value exceeds Rs 10 lakh.",
+      "notes": null
+    },
+    {
+      "id": "Q21",
+      "query": "how far is route VFL-062",
+      "query_type": "identifier",
+      "document_type": "rate_card",
+      "source_file": "rate_card_vantage_freight.pdf",
+      "answer_anchors": ["VFL-062 Kolkata Howrah", "VFL-062"],
+      "expected_answer": "Kolkata to Howrah, 12 km, LCV 3.5T.",
+      "notes": "Deep in the table, far from the header row. Tests header re-prepending on split table chunks."
+    },
+    {
+      "id": "Q22",
+      "query": "how long does the Silverline contract run and how do we get out of it",
+      "query_type": "paraphrase",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["twenty-four (24) months", "ninety (90) days' written notice"],
+      "expected_answer": "24 months, auto-renewing in 12-month periods. 60 days notice to not renew, 30 days for cause, 90 days for convenience.",
+      "notes": "Clause 2. Tests that clause-boundary chunking kept the whole clause intact."
+    },
+    {
+      "id": "Q23",
+      "query": "how quickly do we have to pay Silverline once they invoice us",
+      "query_type": "paraphrase",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["within fifteen (15) days of receipt of a correctly", "fortnightly basis"],
+      "expected_answer": "Within 15 days of a correctly documented invoice with signed proof of delivery. Disputed lines settle within 30 days.",
+      "notes": null
+    },
+    {
+      "id": "Q24",
+      "query": "what's the most Silverline is liable for if a load goes missing",
+      "query_type": "paraphrase",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["Rs. 5,00,000 per consignment", "goods-in-transit insurance"],
+      "expected_answer": "Rs 5,00,000 per consignment, unless a higher declared value was agreed in writing.",
+      "notes": null
+    },
+    {
+      "id": "Q25",
+      "query": "what does clause 13 say about subcontracting",
+      "query_type": "identifier",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["Clause 13 Subcontracting", "shall not subcontract"],
+      "expected_answer": "Subcontracting needs prior written consent, and the Vendor stays fully liable for the subcontracted carrier.",
+      "notes": "Clause number plus one topic word. Tests whether the clause label survived chunking."
+    },
+    {
+      "id": "Q26",
+      "query": "if we end up in a dispute with Silverline where does it get settled",
+      "query_type": "paraphrase",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["Arbitration and Conciliation Act, 1996", "seat of arbitration shall be Mumbai"],
+      "expected_answer": "Good-faith negotiation within 15 days, then sole-arbitrator arbitration seated in Mumbai under the 1996 Act.",
+      "notes": "Clause 12. Clause 7 governing law is a plausible near-miss; both count."
+    },
+    {
+      "id": "Q27",
+      "query": "what on time delivery target do we hold Silverline to",
+      "query_type": "table_lookup",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["92% within committed transit time", "On-time delivery"],
+      "expected_answer": "92% within committed transit time, measured monthly.",
+      "notes": "Annexure B table. Tests that annexures were chunked separately from the clause body."
+    },
+    {
+      "id": "Q28",
+      "query": "what do we pay Silverline for Bhiwandi to Nagpur",
+      "query_type": "table_lookup",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["Nagpur 10-Wheeler (16T) 23.50", "23.50"],
+      "expected_answer": "Rs 23.50 per km on a 10-Wheeler 16T, base fare Rs 1,100, GST 5%.",
+      "notes": "A rate table embedded inside a contract. Type-aware chunking should keep it as its own labelled chunk."
+    },
+    {
+      "id": "Q29",
+      "query": "how many trucks does Silverline have to keep available for us",
+      "query_type": "paraphrase",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["minimum of twelve (12) roadworthy vehicles"],
+      "expected_answer": "Twelve roadworthy vehicles, exclusively available during the term.",
+      "notes": null
+    },
+    {
+      "id": "Q30",
+      "query": "how fast does Silverline have to tell us about a force majeure event",
+      "query_type": "identifier",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["within 72 hours of the force majeure event"],
+      "expected_answer": "In writing within 72 hours of the event arising.",
+      "notes": null
+    },
+    {
+      "id": "Q31",
+      "query": "what paperwork does Silverline have to send us every year",
+      "query_type": "table_lookup",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "answer_anchors": ["Goods-in-transit insurance coverage Policy copy", "RTO fitness certificate copies Annual"],
+      "expected_answer": "Annually: insurance policy plus premium receipt, driver licence copies, and vehicle fitness certificates. GPS certificates once on deployment, hazmat certification every 12 months.",
+      "notes": "Annexure C compliance table."
+    },
+    {
+      "id": "Q32",
+      "query": "does the Nagpur rate we pay Silverline line up with our own rate card",
+      "query_type": "multi_hop",
+      "document_type": "contract",
+      "source_file": "vendor_contract_silverline.pdf",
+      "secondary_file": "rate_card_vantage_freight.pdf",
+      "cross_document": true,
+      "answer_anchors": ["Nagpur 10-Wheeler (16T) 23.50", "VFL-010 Mumbai Nagpur"],
+      "expected_answer": "Not directly comparable. The contract prices Bhiwandi-Nagpur on a 10-Wheeler at Rs 23.50 per km; the rate card only lists Mumbai-Nagpur as Container 40ft at Rs 27.60 per km. Different origin and vehicle class.",
+      "notes": "Cross-document. Needs both anchors for full credit. This is the query that justifies the platform existing."
+    },
+    {
+      "id": "Q33",
+      "query": "pull up incident INC00000034",
+      "query_type": "identifier",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["INC00000034"],
+      "expected_answer": "TRK00016, DRV00014, 29 Sep 2022, DOT Violation, Chicago PA, total claim Rs 64,245.72.",
+      "notes": "Record-id lookup across 170 rows. The clearest BM25-over-dense case in the set."
+    },
+    {
+      "id": "Q34",
+      "query": "what incidents has truck TRK00007 been involved in",
+      "query_type": "identifier",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["TRK00007"],
+      "expected_answer": "INC00000006, INC00000007, INC00000011, INC00000012, INC00000017 and INC00000083.",
+      "notes": "Six records spread through the log. Recall@5 is partial by construction; worth calling out in results."
+    },
+    {
+      "id": "Q35",
+      "query": "what went wrong on trip TRIP00036079",
+      "query_type": "identifier",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["TRIP00036079"],
+      "expected_answer": "INC00000001, a moving violation in Columbus PA on 9 Apr 2023, at fault, claim Rs 12,629.26.",
+      "notes": null
+    },
+    {
+      "id": "Q36",
+      "query": "how much was claimed on INC00000109",
+      "query_type": "identifier",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["INC00000109"],
+      "expected_answer": "Rs 49,744.07, all of it cargo damage. Omaha UT, accident with injury.",
+      "notes": null
+    },
+    {
+      "id": "Q37",
+      "query": "any incidents in Miami where someone got hurt",
+      "query_type": "multi_hop",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["INC00000018", "Miami"],
+      "expected_answer": "INC00000018, a DOT violation in Miami WI with injury flagged. Other Miami records exist without injuries.",
+      "notes": "Two-condition filter. Retrieval surfaces candidates, the LLM has to filter. Moderate expectation."
+    },
+    {
+      "id": "Q38",
+      "query": "what's on driver DRV00058's record",
+      "query_type": "identifier",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["DRV00058"],
+      "expected_answer": "INC00000015, INC00000045, INC00000049, INC00000121 and INC00000131 among others.",
+      "notes": null
+    },
+    {
+      "id": "Q39",
+      "query": "are any incident records missing a truck id",
+      "query_type": "multi_hop",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["INC00000060", "INC00000086"],
+      "expected_answer": "Yes, INC00000060 and INC00000086 have no truck id populated.",
+      "notes": "Absence has no lexical or semantic signal. Included because it should fail; it keeps the headline honest."
+    },
+    {
+      "id": "Q40",
+      "query": "which incidents had the worst cargo damage",
+      "query_type": "paraphrase",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["INC00000109", "49744.07"],
+      "expected_answer": "INC00000109 at 49,744.07, INC00000070 at 47,959.36, INC00000089 at 45,853.75.",
+      "notes": "An aggregation dressed as a search. Expected to score poorly, and documents where a structured query path is needed instead."
+    },
+    {
+      "id": "Q41",
+      "query": "what accidents have we had in Phoenix",
+      "query_type": "paraphrase",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["Phoenix"],
+      "expected_answer": "INC00000008, INC00000065 and INC00000103 among the Phoenix accident records.",
+      "notes": null
+    },
+    {
+      "id": "Q42",
+      "query": "which truck and driver were on INC00000125",
+      "query_type": "identifier",
+      "document_type": "data_log",
+      "source_file": "safety_incidents.pdf",
+      "answer_anchors": ["INC00000125"],
+      "expected_answer": "TRK00079 and DRV00143, Chicago NE, equipment damage, total claim Rs 39,635.12.",
+      "notes": null
+    },
+    {
+      "id": "Q43",
+      "query": "what's the status of invoice INV-2026-0003",
+      "query_type": "identifier",
+      "document_type": "invoice",
+      "source_file": "invoice_statement_vantage.pdf",
+      "answer_anchors": ["INV-2026-0003"],
+      "expected_answer": "Greenfield Agro Traders, route VFL-002, subtotal Rs 19,875, GST 12% Rs 2,385, total Rs 22,260, overdue.",
+      "notes": "Tests that the invoice field-grouping chunker kept one invoice block together."
+    },
+    {
+      "id": "Q44",
+      "query": "which clients haven't paid us yet",
+      "query_type": "paraphrase",
+      "document_type": "invoice",
+      "source_file": "invoice_statement_vantage.pdf",
+      "answer_anchors": ["Overdue", "INVOICE SUMMARY"],
+      "expected_answer": "Greenfield Agro Traders, Coastal Textiles Group and Everest Consumer Goods.",
+      "notes": "The summary table is the ideal hit; individual invoice blocks are partial credit."
+    },
+    {
+      "id": "Q45",
+      "query": "how much did we bill Unity Pharma Logistics",
+      "query_type": "table_lookup",
+      "document_type": "invoice",
+      "source_file": "invoice_statement_vantage.pdf",
+      "answer_anchors": ["Unity Pharma Logistics"],
+      "expected_answer": "Rs 110,880 on INV-2026-0004, already paid.",
+      "notes": null
+    },
+    {
+      "id": "Q46",
+      "query": "what's our GSTIN",
+      "query_type": "identifier",
+      "document_type": "invoice",
+      "source_file": "invoice_statement_vantage.pdf",
+      "answer_anchors": ["27AVFPL1234K1Z5"],
+      "expected_answer": "27AVFPL1234K1Z5.",
+      "notes": "Alphanumeric identifier appearing once, in a header block."
+    },
+    {
+      "id": "Q47",
+      "query": "what happens if a client pays late",
+      "query_type": "paraphrase",
+      "document_type": "invoice",
+      "source_file": "invoice_statement_vantage.pdf",
+      "answer_anchors": ["1.5% monthly late-payment surcharge"],
+      "expected_answer": "A 1.5% monthly late-payment surcharge applies.",
+      "notes": "A single trailing line. Tests that a short final chunk was not discarded."
+    },
+    {
+      "id": "Q48",
+      "query": "which invoice was raised against route VFL-017",
+      "query_type": "identifier",
+      "document_type": "invoice",
+      "source_file": "invoice_statement_vantage.pdf",
+      "answer_anchors": ["Route Code: VFL-017"],
+      "expected_answer": "INV-2026-0010, Meridian Steel Traders, Rs 95,792, paid.",
+      "notes": "Route codes appear in both the rate card and this statement, so this also tests cross-document disambiguation."
+    },
+    {
+      "id": "Q49",
+      "query": "when does Falcon Industrial Supplies have to pay by",
+      "query_type": "multi_hop",
+      "document_type": "invoice",
+      "source_file": "invoice_statement_vantage.pdf",
+      "answer_anchors": ["Falcon Industrial Supplies", "Due Date: 24-May-2026"],
+      "expected_answer": "INV-2026-0008, due 24 May 2026, already paid.",
+      "notes": "Client name to due date needs the whole invoice block in one chunk."
+    },
+    {
+      "id": "Q50",
+      "query": "how much GST did Coastal Textiles get charged",
+      "query_type": "table_lookup",
+      "document_type": "invoice",
+      "source_file": "invoice_statement_vantage.pdf",
+      "answer_anchors": ["Coastal Textiles Group"],
+      "expected_answer": "Rs 9,473 at 12% on a subtotal of Rs 78,940, total Rs 88,413, overdue.",
+      "notes": null
+    }
+  ]
+}

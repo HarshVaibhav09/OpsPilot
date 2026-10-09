@@ -1,0 +1,26 @@
+# Dependencies for the RAGAS scorer only (eval/run_ragas.py).
+#
+# These are installed into a SEPARATE virtual environment (.venv-eval), not the
+# app venv. ragas pins an older LangChain than the application uses, and letting
+# pip resolve both in one environment breaks one or the other.
+#
+#     python -m venv .venv-eval
+#     .\.venv-eval\Scripts\Activate.ps1
+#     pip install -r eval/requirements-eval.txt
+#
+# Phase 1 (eval/generate_answers.py) runs in the normal app venv, since it needs
+# the application pipeline. Only phase 2 runs here.
+#
+# Versions are pinned rather than floated because ragas sits on top of LangChain,
+# and LangChain moves integrations between packages across minor releases. A
+# floating install resolved to a broken combination once already.
+
+ragas==0.1.21
+datasets==2.20.0
+langchain==0.1.20
+langchain-core==0.1.52
+langchain-community==0.0.38
+langchain-groq==0.1.5
+langchain-huggingface==0.0.3
+sentence-transformers>=2.7.0
+pandas>=2.0.0

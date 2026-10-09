@@ -1,0 +1,1948 @@
+{
+  "k": 5,
+  "dense": {
+    "per_query": [
+      {
+        "id": "Q01",
+        "query": "how much weight can we put on a truck before it counts as overloaded",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 314.9,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_2",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_18",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_2",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_20"
+        ]
+      },
+      {
+        "id": "Q02",
+        "query": "what is form VFL-LC-02 used for",
+        "query_type": "identifier",
+        "document_type": "sop",
+        "latency_ms": 11.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_17",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_6",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_2",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_6"
+        ]
+      },
+      {
+        "id": "Q03",
+        "query": "how far can the temperature drift before someone has to be told",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 12.7,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_7",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_23",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_9",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_8"
+        ]
+      },
+      {
+        "id": "Q04",
+        "query": "what do we do when an incident is marked CRITICAL",
+        "query_type": "identifier",
+        "document_type": "sop",
+        "latency_ms": 11.2,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.2,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_10",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_5",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_24",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_9",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_30"
+        ]
+      },
+      {
+        "id": "Q05",
+        "query": "how long do we have to keep cold chain temperature logs",
+        "query_type": "table_lookup",
+        "document_type": "sop",
+        "latency_ms": 12.5,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_23",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_20",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_7",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_8"
+        ]
+      },
+      {
+        "id": "Q06",
+        "query": "what does circular 16/2025 require for vendor vehicles",
+        "query_type": "identifier",
+        "document_type": "sop",
+        "latency_ms": 11.8,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_2",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_21",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_31",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_23",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_19"
+        ]
+      },
+      {
+        "id": "Q07",
+        "query": "when is a truck due for servicing",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 9.6,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_9",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_18",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_1",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_21",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_2"
+        ]
+      },
+      {
+        "id": "Q08",
+        "query": "what training does a new driver need before going out on his own",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 13.6,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.2,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_3",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_27",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_4",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_28",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_19"
+        ]
+      },
+      {
+        "id": "Q09",
+        "query": "who do I call at the Bhiwandi depot",
+        "query_type": "table_lookup",
+        "document_type": "sop",
+        "latency_ms": 13.4,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.2,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_22",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_32",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_33",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_34",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_26"
+        ]
+      },
+      {
+        "id": "Q10",
+        "query": "what changed in SOP-WD-2026-v2 compared to the previous version",
+        "query_type": "identifier",
+        "document_type": "sop",
+        "latency_ms": 16.1,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_31",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_21",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_17",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_34",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_0"
+        ]
+      },
+      {
+        "id": "Q11",
+        "query": "how soon do I have to log an accident after it happens",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 12.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_10",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_30",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_7",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_5",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_0"
+        ]
+      },
+      {
+        "id": "Q12",
+        "query": "what's the rate on route VFL-010",
+        "query_type": "identifier",
+        "document_type": "rate_card",
+        "latency_ms": 13.2,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_11",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_19",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20"
+        ]
+      },
+      {
+        "id": "Q13",
+        "query": "what do we charge when a truck is kept waiting at the dock",
+        "query_type": "paraphrase",
+        "document_type": "rate_card",
+        "latency_ms": 13.1,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_22",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_18",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_8",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_23"
+        ]
+      },
+      {
+        "id": "Q14",
+        "query": "how much extra do we charge for reefer cargo",
+        "query_type": "table_lookup",
+        "document_type": "rate_card",
+        "latency_ms": 11.3,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_23",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_25",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_18",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_22"
+        ]
+      },
+      {
+        "id": "Q15",
+        "query": "what's the per km rate from Delhi to Jaipur",
+        "query_type": "table_lookup",
+        "document_type": "rate_card",
+        "latency_ms": 12.7,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_11",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_17",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_8",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_19",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_15"
+        ]
+      },
+      {
+        "id": "Q16",
+        "query": "how is the fuel surcharge worked out each month",
+        "query_type": "paraphrase",
+        "document_type": "rate_card",
+        "latency_ms": 12.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_21",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_25",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_23",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_18"
+        ]
+      },
+      {
+        "id": "Q17",
+        "query": "how much detention grace time do Kolkata deliveries get",
+        "query_type": "table_lookup",
+        "document_type": "rate_card",
+        "latency_ms": 12.1,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_26",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_24",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_21",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_18",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4"
+        ]
+      },
+      {
+        "id": "Q18",
+        "query": "what do we charge for an oversized load",
+        "query_type": "paraphrase",
+        "document_type": "rate_card",
+        "latency_ms": 11.2,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_22",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_11",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_2",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_23"
+        ]
+      },
+      {
+        "id": "Q19",
+        "query": "which routes are billed at 12 percent GST",
+        "query_type": "multi_hop",
+        "document_type": "rate_card",
+        "latency_ms": 10.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.8,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_17",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_11",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_19",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20"
+        ]
+      },
+      {
+        "id": "Q20",
+        "query": "what's the surcharge on high value shipments",
+        "query_type": "table_lookup",
+        "document_type": "rate_card",
+        "latency_ms": 12.3,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_23",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_11",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_25",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_22",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_21"
+        ]
+      },
+      {
+        "id": "Q21",
+        "query": "how far is route VFL-062",
+        "query_type": "identifier",
+        "document_type": "rate_card",
+        "latency_ms": 10.2,
+        "recall_at_k": 1.0,
+        "mrr": 0.25,
+        "precision_at_k": 0.2,
+        "first_rank": 4,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_19",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_11",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_6",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_14",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_5"
+        ]
+      },
+      {
+        "id": "Q22",
+        "query": "how long does the Silverline contract run and how do we get out of it",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 13.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_3",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_7",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_5",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_14"
+        ]
+      },
+      {
+        "id": "Q23",
+        "query": "how quickly do we have to pay Silverline once they invoice us",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 13.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_9",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_11",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_7"
+        ]
+      },
+      {
+        "id": "Q24",
+        "query": "what's the most Silverline is liable for if a load goes missing",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 13.4,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_2",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_6",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_8"
+        ]
+      },
+      {
+        "id": "Q25",
+        "query": "what does clause 13 say about subcontracting",
+        "query_type": "identifier",
+        "document_type": "contract",
+        "latency_ms": 11.3,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_14",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_16",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_15",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_5",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_13"
+        ]
+      },
+      {
+        "id": "Q26",
+        "query": "if we end up in a dispute with Silverline where does it get settled",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 12.6,
+        "recall_at_k": 1.0,
+        "mrr": 0.3333333333333333,
+        "precision_at_k": 0.2,
+        "first_rank": 3,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_13",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_15",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_7"
+        ]
+      },
+      {
+        "id": "Q27",
+        "query": "what on time delivery target do we hold Silverline to",
+        "query_type": "table_lookup",
+        "document_type": "contract",
+        "latency_ms": 11.9,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_18",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_22",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_14",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_33"
+        ]
+      },
+      {
+        "id": "Q28",
+        "query": "what do we pay Silverline for Bhiwandi to Nagpur",
+        "query_type": "table_lookup",
+        "document_type": "contract",
+        "latency_ms": 12.3,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_17",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_22",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_21"
+        ]
+      },
+      {
+        "id": "Q29",
+        "query": "how many trucks does Silverline have to keep available for us",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 10.9,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_2",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_6",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_20",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_14",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_5"
+        ]
+      },
+      {
+        "id": "Q30",
+        "query": "how fast does Silverline have to tell us about a force majeure event",
+        "query_type": "identifier",
+        "document_type": "contract",
+        "latency_ms": 12.1,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_9",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_5",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_11",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_24",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_15"
+        ]
+      },
+      {
+        "id": "Q31",
+        "query": "what paperwork does Silverline have to send us every year",
+        "query_type": "table_lookup",
+        "document_type": "contract",
+        "latency_ms": 10.8,
+        "recall_at_k": 1.0,
+        "mrr": 0.3333333333333333,
+        "precision_at_k": 0.2,
+        "first_rank": 3,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_19",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_23",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_6",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_10"
+        ]
+      },
+      {
+        "id": "Q32",
+        "query": "does the Nagpur rate we pay Silverline line up with our own rate card",
+        "query_type": "multi_hop",
+        "document_type": "contract",
+        "latency_ms": 12.3,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_21",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3"
+        ]
+      },
+      {
+        "id": "Q33",
+        "query": "pull up incident INC00000034",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 8.7,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_3",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_8",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_46",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_0",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_1"
+        ]
+      },
+      {
+        "id": "Q34",
+        "query": "what incidents has truck TRK00007 been involved in",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 10.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.6,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_3",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_1",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_2",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_10",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_4"
+        ]
+      },
+      {
+        "id": "Q35",
+        "query": "what went wrong on trip TRIP00036079",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 10.6,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_20",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_12",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_14",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_26",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_41"
+        ]
+      },
+      {
+        "id": "Q36",
+        "query": "how much was claimed on INC00000109",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 10.4,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_9",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_8",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_11",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_2"
+        ]
+      },
+      {
+        "id": "Q37",
+        "query": "any incidents in Miami where someone got hurt",
+        "query_type": "multi_hop",
+        "document_type": "data_log",
+        "latency_ms": 9.1,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.6,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_6",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_42",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_7",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_22",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_0"
+        ]
+      },
+      {
+        "id": "Q38",
+        "query": "what's on driver DRV00058's record",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 11.7,
+        "recall_at_k": 1.0,
+        "mrr": 0.3333333333333333,
+        "precision_at_k": 0.2,
+        "first_rank": 3,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_17",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_11",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_14",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_16",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_9"
+        ]
+      },
+      {
+        "id": "Q39",
+        "query": "are any incident records missing a truck id",
+        "query_type": "multi_hop",
+        "document_type": "data_log",
+        "latency_ms": 9.4,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_3",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_1",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_2",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_5",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_4"
+        ]
+      },
+      {
+        "id": "Q40",
+        "query": "which incidents had the worst cargo damage",
+        "query_type": "paraphrase",
+        "document_type": "data_log",
+        "latency_ms": 8.5,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_24",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_3",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_0",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_5",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_1"
+        ]
+      },
+      {
+        "id": "Q41",
+        "query": "what accidents have we had in Phoenix",
+        "query_type": "paraphrase",
+        "document_type": "data_log",
+        "latency_ms": 9.2,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.8,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_20",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_37",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_17",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_46",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_22"
+        ]
+      },
+      {
+        "id": "Q42",
+        "query": "which truck and driver were on INC00000125",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 10.9,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_10",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_11",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_8",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_1",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_3"
+        ]
+      },
+      {
+        "id": "Q43",
+        "query": "what's the status of invoice INV-2026-0003",
+        "query_type": "identifier",
+        "document_type": "invoice",
+        "latency_ms": 13.3,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_9",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_0",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_5",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3"
+        ]
+      },
+      {
+        "id": "Q44",
+        "query": "which clients haven't paid us yet",
+        "query_type": "paraphrase",
+        "document_type": "invoice",
+        "latency_ms": 9.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.6,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_9",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_11",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_14"
+        ]
+      },
+      {
+        "id": "Q45",
+        "query": "how much did we bill Unity Pharma Logistics",
+        "query_type": "table_lookup",
+        "document_type": "invoice",
+        "latency_ms": 10.1,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.6,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_9",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_23"
+        ]
+      },
+      {
+        "id": "Q46",
+        "query": "what's our GSTIN",
+        "query_type": "identifier",
+        "document_type": "invoice",
+        "latency_ms": 8.5,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_0",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_5",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_7",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_17"
+        ]
+      },
+      {
+        "id": "Q47",
+        "query": "what happens if a client pays late",
+        "query_type": "paraphrase",
+        "document_type": "invoice",
+        "latency_ms": 8.7,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_11",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_9",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_9",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10"
+        ]
+      },
+      {
+        "id": "Q48",
+        "query": "which invoice was raised against route VFL-017",
+        "query_type": "identifier",
+        "document_type": "invoice",
+        "latency_ms": 11.2,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_0",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_5",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_1",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3"
+        ]
+      },
+      {
+        "id": "Q49",
+        "query": "when does Falcon Industrial Supplies have to pay by",
+        "query_type": "multi_hop",
+        "document_type": "invoice",
+        "latency_ms": 9.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.6,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_5",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_9",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_0",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3"
+        ]
+      },
+      {
+        "id": "Q50",
+        "query": "how much GST did Coastal Textiles get charged",
+        "query_type": "table_lookup",
+        "document_type": "invoice",
+        "latency_ms": 9.3,
+        "recall_at_k": 1.0,
+        "mrr": 0.2,
+        "precision_at_k": 0.2,
+        "first_rank": 5,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_2",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_8",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_4",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_6",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3"
+        ]
+      }
+    ],
+    "aggregate": {
+      "overall": {
+        "n": 50,
+        "recall_at_k": 0.74,
+        "mrr": 0.639,
+        "p50_latency_ms": 11.5
+      }
+    }
+  },
+  "hybrid": {
+    "per_query": [
+      {
+        "id": "Q01",
+        "query": "how much weight can we put on a truck before it counts as overloaded",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 85.5,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_2",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_4",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_1",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_4"
+        ]
+      },
+      {
+        "id": "Q02",
+        "query": "what is form VFL-LC-02 used for",
+        "query_type": "identifier",
+        "document_type": "sop",
+        "latency_ms": 17.2,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.4,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_2",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_17",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_32"
+        ]
+      },
+      {
+        "id": "Q03",
+        "query": "how far can the temperature drift before someone has to be told",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 17.7,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_7",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_23",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_2",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_9"
+        ]
+      },
+      {
+        "id": "Q04",
+        "query": "what do we do when an incident is marked CRITICAL",
+        "query_type": "identifier",
+        "document_type": "sop",
+        "latency_ms": 18.9,
+        "recall_at_k": 1.0,
+        "mrr": 0.3333333333333333,
+        "precision_at_k": 0.2,
+        "first_rank": 3,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_10",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_29",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_5",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_4",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_24"
+        ]
+      },
+      {
+        "id": "Q05",
+        "query": "how long do we have to keep cold chain temperature logs",
+        "query_type": "table_lookup",
+        "document_type": "sop",
+        "latency_ms": 17.1,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_23",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_20",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_7",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_5"
+        ]
+      },
+      {
+        "id": "Q06",
+        "query": "what does circular 16/2025 require for vendor vehicles",
+        "query_type": "identifier",
+        "document_type": "sop",
+        "latency_ms": 15.8,
+        "recall_at_k": 1.0,
+        "mrr": 0.3333333333333333,
+        "precision_at_k": 0.2,
+        "first_rank": 3,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_2",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_6",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_29",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_14",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_23"
+        ]
+      },
+      {
+        "id": "Q07",
+        "query": "when is a truck due for servicing",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 16.5,
+        "recall_at_k": 1.0,
+        "mrr": 0.2,
+        "precision_at_k": 0.2,
+        "first_rank": 5,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_1",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_2",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_0",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_9"
+        ]
+      },
+      {
+        "id": "Q08",
+        "query": "what training does a new driver need before going out on his own",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 17.5,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_27",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_29",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_4",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_28",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_1"
+        ]
+      },
+      {
+        "id": "Q09",
+        "query": "who do I call at the Bhiwandi depot",
+        "query_type": "table_lookup",
+        "document_type": "sop",
+        "latency_ms": 18.5,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_32",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_34",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_26",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_19",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_18"
+        ]
+      },
+      {
+        "id": "Q10",
+        "query": "what changed in SOP-WD-2026-v2 compared to the previous version",
+        "query_type": "identifier",
+        "document_type": "sop",
+        "latency_ms": 22.7,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_31",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_0",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_21",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_34",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_17"
+        ]
+      },
+      {
+        "id": "Q11",
+        "query": "how soon do I have to log an accident after it happens",
+        "query_type": "paraphrase",
+        "document_type": "sop",
+        "latency_ms": 19.3,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.2,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_30",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_10",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_16",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_1",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_7"
+        ]
+      },
+      {
+        "id": "Q12",
+        "query": "what's the rate on route VFL-010",
+        "query_type": "identifier",
+        "document_type": "rate_card",
+        "latency_ms": 21.6,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_22",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_11"
+        ]
+      },
+      {
+        "id": "Q13",
+        "query": "what do we charge when a truck is kept waiting at the dock",
+        "query_type": "paraphrase",
+        "document_type": "rate_card",
+        "latency_ms": 21.7,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_22",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_21",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_8",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_5"
+        ]
+      },
+      {
+        "id": "Q14",
+        "query": "how much extra do we charge for reefer cargo",
+        "query_type": "table_lookup",
+        "document_type": "rate_card",
+        "latency_ms": 17.7,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_25",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_23",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_7",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_22",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_5"
+        ]
+      },
+      {
+        "id": "Q15",
+        "query": "what's the per km rate from Delhi to Jaipur",
+        "query_type": "table_lookup",
+        "document_type": "rate_card",
+        "latency_ms": 21.9,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_11",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_25",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_17"
+        ]
+      },
+      {
+        "id": "Q16",
+        "query": "how is the fuel surcharge worked out each month",
+        "query_type": "paraphrase",
+        "document_type": "rate_card",
+        "latency_ms": 18.9,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_21",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_25",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_11",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_4"
+        ]
+      },
+      {
+        "id": "Q17",
+        "query": "how much detention grace time do Kolkata deliveries get",
+        "query_type": "table_lookup",
+        "document_type": "rate_card",
+        "latency_ms": 17.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_26",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_24",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_22",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_11"
+        ]
+      },
+      {
+        "id": "Q18",
+        "query": "what do we charge for an oversized load",
+        "query_type": "paraphrase",
+        "document_type": "rate_card",
+        "latency_ms": 17.6,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_22",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_2",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_21",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_8",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_5"
+        ]
+      },
+      {
+        "id": "Q19",
+        "query": "which routes are billed at 12 percent GST",
+        "query_type": "multi_hop",
+        "document_type": "rate_card",
+        "latency_ms": 18.5,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.8,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_11",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_19",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_17"
+        ]
+      },
+      {
+        "id": "Q20",
+        "query": "what's the surcharge on high value shipments",
+        "query_type": "table_lookup",
+        "document_type": "rate_card",
+        "latency_ms": 18.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_25",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_11",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_21",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_23"
+        ]
+      },
+      {
+        "id": "Q21",
+        "query": "how far is route VFL-062",
+        "query_type": "identifier",
+        "document_type": "rate_card",
+        "latency_ms": 19.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_14",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_19",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_11",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_6"
+        ]
+      },
+      {
+        "id": "Q22",
+        "query": "how long does the Silverline contract run and how do we get out of it",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 23.6,
+        "recall_at_k": 1.0,
+        "mrr": 0.3333333333333333,
+        "precision_at_k": 0.2,
+        "first_rank": 3,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_3",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_29",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_8"
+        ]
+      },
+      {
+        "id": "Q23",
+        "query": "how quickly do we have to pay Silverline once they invoice us",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 17.0,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.2,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_8",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_2",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_4",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_6"
+        ]
+      },
+      {
+        "id": "Q24",
+        "query": "what's the most Silverline is liable for if a load goes missing",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 19.2,
+        "recall_at_k": 1.0,
+        "mrr": 0.2,
+        "precision_at_k": 0.2,
+        "first_rank": 5,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_14",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_2",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_5"
+        ]
+      },
+      {
+        "id": "Q25",
+        "query": "what does clause 13 say about subcontracting",
+        "query_type": "identifier",
+        "document_type": "contract",
+        "latency_ms": 21.3,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_14",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_24",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_16",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_22",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_15"
+        ]
+      },
+      {
+        "id": "Q26",
+        "query": "if we end up in a dispute with Silverline where does it get settled",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 20.8,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.2,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_13",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_15",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_14"
+        ]
+      },
+      {
+        "id": "Q27",
+        "query": "what on time delivery target do we hold Silverline to",
+        "query_type": "table_lookup",
+        "document_type": "contract",
+        "latency_ms": 38.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_22",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_7",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_18"
+        ]
+      },
+      {
+        "id": "Q28",
+        "query": "what do we pay Silverline for Bhiwandi to Nagpur",
+        "query_type": "table_lookup",
+        "document_type": "contract",
+        "latency_ms": 22.3,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_21",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_17",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_22"
+        ]
+      },
+      {
+        "id": "Q29",
+        "query": "how many trucks does Silverline have to keep available for us",
+        "query_type": "paraphrase",
+        "document_type": "contract",
+        "latency_ms": 21.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_2",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_4",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_6"
+        ]
+      },
+      {
+        "id": "Q30",
+        "query": "how fast does Silverline have to tell us about a force majeure event",
+        "query_type": "identifier",
+        "document_type": "contract",
+        "latency_ms": 24.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_9",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_5",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_11",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_15"
+        ]
+      },
+      {
+        "id": "Q31",
+        "query": "what paperwork does Silverline have to send us every year",
+        "query_type": "table_lookup",
+        "document_type": "contract",
+        "latency_ms": 21.9,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.2,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_23",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_10",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_28",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_16"
+        ]
+      },
+      {
+        "id": "Q32",
+        "query": "does the Nagpur rate we pay Silverline line up with our own rate card",
+        "query_type": "multi_hop",
+        "document_type": "contract",
+        "latency_ms": 23.6,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_20",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_21",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_0"
+        ]
+      },
+      {
+        "id": "Q33",
+        "query": "pull up incident INC00000034",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 19.3,
+        "recall_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.2,
+        "first_rank": 2,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_8",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_10",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_12",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_3",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_5"
+        ]
+      },
+      {
+        "id": "Q34",
+        "query": "what incidents has truck TRK00007 been involved in",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 20.4,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.8,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_3",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_2",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_4",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_5",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_5"
+        ]
+      },
+      {
+        "id": "Q35",
+        "query": "what went wrong on trip TRIP00036079",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 23.2,
+        "recall_at_k": 1.0,
+        "mrr": 0.25,
+        "precision_at_k": 0.2,
+        "first_rank": 4,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_20",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_4",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_12",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_0",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_14"
+        ]
+      },
+      {
+        "id": "Q36",
+        "query": "how much was claimed on INC00000109",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 20.0,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_4",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_8",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_6",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_2",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10"
+        ]
+      },
+      {
+        "id": "Q37",
+        "query": "any incidents in Miami where someone got hurt",
+        "query_type": "multi_hop",
+        "document_type": "data_log",
+        "latency_ms": 21.9,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.4,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_6",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_10",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_42",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_7",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_7"
+        ]
+      },
+      {
+        "id": "Q38",
+        "query": "what's on driver DRV00058's record",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 24.3,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_13",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_17",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_23",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_11",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_17"
+        ]
+      },
+      {
+        "id": "Q39",
+        "query": "are any incident records missing a truck id",
+        "query_type": "multi_hop",
+        "document_type": "data_log",
+        "latency_ms": 20.8,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_30",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_3",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_1",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_1",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_2"
+        ]
+      },
+      {
+        "id": "Q40",
+        "query": "which incidents had the worst cargo damage",
+        "query_type": "paraphrase",
+        "document_type": "data_log",
+        "latency_ms": 19.4,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_22",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_24",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_18",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_46",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_24"
+        ]
+      },
+      {
+        "id": "Q41",
+        "query": "what accidents have we had in Phoenix",
+        "query_type": "paraphrase",
+        "document_type": "data_log",
+        "latency_ms": 17.3,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 1.0,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_20",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_37",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_17",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_22",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_30"
+        ]
+      },
+      {
+        "id": "Q42",
+        "query": "which truck and driver were on INC00000125",
+        "query_type": "identifier",
+        "document_type": "data_log",
+        "latency_ms": 24.1,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_10",
+          "426e6f24-4427-4dc7-b174-8d7c95721a74_3",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_11",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_23",
+          "c4a43d96-5421-4b81-acb9-d3e4e345d7ad_8"
+        ]
+      },
+      {
+        "id": "Q43",
+        "query": "what's the status of invoice INV-2026-0003",
+        "query_type": "identifier",
+        "document_type": "invoice",
+        "latency_ms": 19.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.6,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_0",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_2",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_4",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_5"
+        ]
+      },
+      {
+        "id": "Q44",
+        "query": "which clients haven't paid us yet",
+        "query_type": "paraphrase",
+        "document_type": "invoice",
+        "latency_ms": 18.0,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.8,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_11",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_7",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_5"
+        ]
+      },
+      {
+        "id": "Q45",
+        "query": "how much did we bill Unity Pharma Logistics",
+        "query_type": "table_lookup",
+        "document_type": "invoice",
+        "latency_ms": 17.9,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.6,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_9",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_5",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_1"
+        ]
+      },
+      {
+        "id": "Q46",
+        "query": "what's our GSTIN",
+        "query_type": "identifier",
+        "document_type": "invoice",
+        "latency_ms": 20.0,
+        "recall_at_k": 1.0,
+        "mrr": 0.3333333333333333,
+        "precision_at_k": 0.2,
+        "first_rank": 3,
+        "retrieved_keys": [
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_11",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_1",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_0",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_0"
+        ]
+      },
+      {
+        "id": "Q47",
+        "query": "what happens if a client pays late",
+        "query_type": "paraphrase",
+        "document_type": "invoice",
+        "latency_ms": 18.7,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "precision_at_k": 0.0,
+        "first_rank": null,
+        "retrieved_keys": [
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_14",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "03cce4ea-66a1-4a75-be4b-3e983f5ad8c3_30",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_10"
+        ]
+      },
+      {
+        "id": "Q48",
+        "query": "which invoice was raised against route VFL-017",
+        "query_type": "identifier",
+        "document_type": "invoice",
+        "latency_ms": 18.8,
+        "recall_at_k": 1.0,
+        "mrr": 0.25,
+        "precision_at_k": 0.2,
+        "first_rank": 4,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_0",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_5",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_1",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_7",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3"
+        ]
+      },
+      {
+        "id": "Q49",
+        "query": "when does Falcon Industrial Supplies have to pay by",
+        "query_type": "multi_hop",
+        "document_type": "invoice",
+        "latency_ms": 19.8,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.6,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_5",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_10",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_9",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_4",
+          "a7708046-71be-4650-a702-6aeba7f3bfd4_8"
+        ]
+      },
+      {
+        "id": "Q50",
+        "query": "how much GST did Coastal Textiles get charged",
+        "query_type": "table_lookup",
+        "document_type": "invoice",
+        "latency_ms": 14.9,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "precision_at_k": 0.2,
+        "first_rank": 1,
+        "retrieved_keys": [
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_3",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_2",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_4",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_8",
+          "c7a36489-cb22-4e49-977d-3bb4f05263e3_6"
+        ]
+      }
+    ],
+    "aggregate": {
+      "overall": {
+        "n": 50,
+        "recall_at_k": 0.84,
+        "mrr": 0.655,
+        "p50_latency_ms": 19.4
+      }
+    }
+  },
+  "by_query_type": {
+    "dense": {
+      "paraphrase": {
+        "n": 17,
+        "recall_at_k": 0.824,
+        "mrr": 0.755,
+        "p50_latency_ms": 12.7
+      },
+      "identifier": {
+        "n": 17,
+        "recall_at_k": 0.529,
+        "mrr": 0.417,
+        "p50_latency_ms": 11.2
+      },
+      "table_lookup": {
+        "n": 11,
+        "recall_at_k": 0.909,
+        "mrr": 0.73,
+        "p50_latency_ms": 12.1
+      },
+      "multi_hop": {
+        "n": 5,
+        "recall_at_k": 0.8,
+        "mrr": 0.8,
+        "p50_latency_ms": 9.4
+      }
+    },
+    "hybrid": {
+      "paraphrase": {
+        "n": 17,
+        "recall_at_k": 0.824,
+        "mrr": 0.602,
+        "p50_latency_ms": 18.9
+      },
+      "identifier": {
+        "n": 17,
+        "recall_at_k": 0.765,
+        "mrr": 0.5,
+        "p50_latency_ms": 20.0
+      },
+      "table_lookup": {
+        "n": 11,
+        "recall_at_k": 1.0,
+        "mrr": 0.955,
+        "p50_latency_ms": 18.0
+      },
+      "multi_hop": {
+        "n": 5,
+        "recall_at_k": 0.8,
+        "mrr": 0.7,
+        "p50_latency_ms": 20.8
+      }
+    }
+  },
+  "by_document_type": {
+    "dense": {
+      "sop": {
+        "n": 11,
+        "recall_at_k": 0.909,
+        "mrr": 0.773,
+        "p50_latency_ms": 12.7
+      },
+      "rate_card": {
+        "n": 10,
+        "recall_at_k": 0.7,
+        "mrr": 0.625,
+        "p50_latency_ms": 12.2
+      },
+      "contract": {
+        "n": 11,
+        "recall_at_k": 0.909,
+        "mrr": 0.788,
+        "p50_latency_ms": 12.3
+      },
+      "data_log": {
+        "n": 10,
+        "recall_at_k": 0.4,
+        "mrr": 0.333,
+        "p50_latency_ms": 9.9
+      },
+      "invoice": {
+        "n": 8,
+        "recall_at_k": 0.75,
+        "mrr": 0.65,
+        "p50_latency_ms": 9.4
+      }
+    },
+    "hybrid": {
+      "sop": {
+        "n": 11,
+        "recall_at_k": 1.0,
+        "mrr": 0.715,
+        "p50_latency_ms": 17.7
+      },
+      "rate_card": {
+        "n": 10,
+        "recall_at_k": 0.8,
+        "mrr": 0.75,
+        "p50_latency_ms": 18.7
+      },
+      "contract": {
+        "n": 11,
+        "recall_at_k": 1.0,
+        "mrr": 0.73,
+        "p50_latency_ms": 21.9
+      },
+      "data_log": {
+        "n": 10,
+        "recall_at_k": 0.5,
+        "mrr": 0.375,
+        "p50_latency_ms": 20.6
+      },
+      "invoice": {
+        "n": 8,
+        "recall_at_k": 0.875,
+        "mrr": 0.698,
+        "p50_latency_ms": 18.8
+      }
+    }
+  },
+  "skipped": []
+}

@@ -1,0 +1,102 @@
+{
+  "hybrid": true,
+  "generated": 5,
+  "failures": [],
+  "records": [
+    {
+      "id": "Q01",
+      "query": "how much weight can we put on a truck before it counts as overloaded",
+      "query_type": "paraphrase",
+      "document_type": "sop",
+      "answer": "Keep the truck\u2019s load at **no more than\u202f90\u202f% of its rated axle capacity**; any load beyond that is considered overloaded.\u202f(Source: sop_vantage_freight.pdf, page\u202f1, 2\u202fWAREHOUSE\u202fLOADING\u202fPROTOCOL)",
+      "contexts": [
+        "\u2022 Verify the shipment manifest against the physical count before loading begins.\n\u2022 Fragile or hazardous cargo must be flagged in the WMS and loaded last for easy offload access.\n\u2022 Maximum vehicle load must not exceed 90% of the rated axle capacity.\n\u2022 The loading supervisor signs off on the Loading Compliance Sheet (Form VFL-LC-02) before the vehicle gate\npass is issued.\n\u2022 Pallets exceeding 1.8 metres in stacked height require additional strapping per the depot's current safety\ncircular.",
+        "\u2022 Verify the presence of an emergency contact card and a stocked first-aid kit.\n\u2022 Confirm the fuel card balance is sufficient for the round trip plus a 15% buffer.\n\u2022 Obtain the loading supervisor's signed gate pass before the vehicle exits the depot.",
+        "Rates below apply to full-truckload (FTL) bookings on the listed lanes. For part-load (LTL) bookings, contact the\nnearest branch office for a customised quote.\nRoute\nOrigin\nDestination\nVehicle Class\nDist (km)\nRate/km (Rs.)\nBase Fare (Rs.)\nGST %\nVFL-001\nMumbai\nPune\nMini Truck (1T)\n148\n18.50\n500\n5\nVFL-002\nDelhi\nJaipur\nLCV (3.5T)\n281\n20.75\n775\n5\nVFL-003\nBengaluru\nChennai\n10-Wheeler (16T)\n346\n22.90\n1050\n5\nVFL-004\nAhmedabad\nSurat\nContainer (20ft)\n263\n25.40\n1325\n12\nVFL-005\nKolkata\nBhubaneswar\nContainer (40ft)\n442\n27.60\n1600\n12\nVFL-006\nHyderabad\nVijayawada\nMini Truck (1T)\n275\n18.50\n500\n5\nVFL-007\nPune\nNashik\nLCV (3.5T)\n210\n20.75\n775\n5\nVFL-008\nChennai\nCoimbatore\n10-Wheeler (16T)\n505\n22.90\n1050\n5",
+        "440001 (\u201cthe Vendor\u201d), collectively referred to as \u201cthe Parties.\u201d\nWHEREAS the Company requires reliable road transportation services across its Western and Central India\nnetwork, and WHEREAS the Vendor represents that it possesses the fleet, licences, and operational capability to\nprovide such services, the Parties hereby agree as follows.",
+        "TAX INVOICE \u2014 INV-2026-0004\nGST (5%): Rs. 5,280\nAmount payable via NEFT to the account details on file with Accounts Receivable. Please quote the invoice number as payment\nreference.\nTAX INVOICE \u2014 INV-2026-0005\nGST (5%): Rs. 1,660\nAmount payable via NEFT to the account details on file with Accounts Receivable. Please quote the invoice number as payment\nreference.\nTAX INVOICE \u2014 INV-2026-0006\nGST (12%): Rs. 9,473\nAmount payable via NEFT to the account details on file with Accounts Receivable. Please quote the invoice number as payment\nreference."
+      ],
+      "ground_truth": "Load must not exceed 90% of rated axle capacity.",
+      "confidence": 0.42,
+      "rewritten_query": "how much weight can we put on a truck before it counts as overloaded",
+      "avg_similarity": 0.423,
+      "citation_count": 5
+    },
+    {
+      "id": "Q02",
+      "query": "what is form VFL-LC-02 used for",
+      "query_type": "identifier",
+      "document_type": "sop",
+      "answer": "Form **VFL\u2011LC\u201102** is the **Loading Compliance Sheet** used to document that a shipment has been loaded in accordance with Vantage Freight\u2019s loading rules. The loading supervisor must sign off on this form before the vehicle\u2019s gate pass is issued, and the completed sheet is retained (physically or digitally) for at least three\u202fyears.  \n\n(Source: sop_vantage_freight.pdf, page\u202f1; sop_vantage_freight.pdf, page\u202f2)",
+      "contexts": [
+        "VANTAGE FREIGHT & LOGISTICS PVT. LTD.\nFreight Rate Card \u2014 Effective 1 April 2026  |  Ref: VFL-RC-2026-03\nThis rate card supersedes all previous versions and applies to all road freight bookings made through Vantage\nFreight & Logistics Pvt. Ltd. (\u201cVFL\u201d) branch offices and the online booking portal. Rates are quoted per kilometre,\nexclusive of applicable GST, which is charged additionally at the rate indicated per route category. Fuel surcharge\nis calculated separately based on the prevailing diesel index and billed on actuals at month-end.\nSTANDARD ROUTE RATES\nRates below apply to full-truckload (FTL) bookings on the listed lanes. For part-load (LTL) bookings, contact the",
+        "\u2022 Verify the shipment manifest against the physical count before loading begins.\n\u2022 Fragile or hazardous cargo must be flagged in the WMS and loaded last for easy offload access.\n\u2022 Maximum vehicle load must not exceed 90% of the rated axle capacity.\n\u2022 The loading supervisor signs off on the Loading Compliance Sheet (Form VFL-LC-02) before the vehicle gate\npass is issued.\n\u2022 Pallets exceeding 1.8 metres in stacked height require additional strapping per the depot's current safety\ncircular.",
+        "All loading compliance sheets, pre-trip inspection checklists, cold-chain temperature logs, and incident reports\nmust be retained at the depot level for a minimum of three years from the date of creation, and made available to\nthe Compliance Office or any regulatory authority upon request. Digital copies uploaded to the central WMS satisfy\nthis requirement in place of physical retention, provided the upload is completed within 48 hours of the record\nbeing created.",
+        "Record Type\nRetention Period\nStorage Location\nLoading Compliance Sheets (Form VFL-LC-02)",
+        "The following contacts should be used for escalations and compliance queries specific to each depot. This\ndirectory is updated whenever a depot management change occurs and should be cross-checked against the most\nrecent circular before use.\nDepot\nDepot Manager Contact\nZone\nBhiwandi Central Hub\n+91-98200-10001\nWestern"
+      ],
+      "ground_truth": "It is the Loading Compliance Sheet, signed by the loading supervisor before the gate pass is issued.",
+      "confidence": 0.54,
+      "rewritten_query": "what is form VFL-LC-02 used for",
+      "avg_similarity": 0.537,
+      "citation_count": 5
+    },
+    {
+      "id": "Q03",
+      "query": "how far can the temperature drift before someone has to be told",
+      "query_type": "paraphrase",
+      "document_type": "sop",
+      "answer": "The temperature can drift up to **\u00b1\u202f2\u202f\u00b0C** from the set point; any deviation beyond that must be reported immediately to the depot duty manager. (Source: sop_vantage_freight.pdf, page\u202f2, 4\u202fCOLD\u202fCHAIN\u202fHANDLING)",
+      "contexts": [
+        "\u2022 Reefer unit temperature must be logged at loading, mid-route, and delivery checkpoints.\n\u2022 Any deviation beyond +/- 2 degrees Celsius from the set point must be reported to the depot duty manager\nimmediately.\n\u2022 Pre-cooling of the cargo bay is mandatory at least 30 minutes before loading begins.\n\u2022 Perishable shipments exceeding 6 hours in transit require a mandatory mid-route inspection stop, logged in\nthe dispatch system.",
+        "All loading compliance sheets, pre-trip inspection checklists, cold-chain temperature logs, and incident reports\nmust be retained at the depot level for a minimum of three years from the date of creation, and made available to\nthe Compliance Office or any regulatory authority upon request. Digital copies uploaded to the central WMS satisfy\nthis requirement in place of physical retention, provided the upload is completed within 48 hours of the record\nbeing created.",
+        "Record Type\nRetention Period\nStorage Location\nCold-chain temperature logs",
+        "\u2022 Verify the shipment manifest against the physical count before loading begins.\n\u2022 Fragile or hazardous cargo must be flagged in the WMS and loaded last for easy offload access.\n\u2022 Maximum vehicle load must not exceed 90% of the rated axle capacity.\n\u2022 The loading supervisor signs off on the Loading Compliance Sheet (Form VFL-LC-02) before the vehicle gate\npass is issued.\n\u2022 Pallets exceeding 1.8 metres in stacked height require additional strapping per the depot's current safety\ncircular.",
+        "Neither Party shall be liable for any failure or delay in performance under this Agreement to the extent such failure\nor delay is caused by circumstances beyond its reasonable control, including but not limited to natural disasters,\ngovernment-mandated lockdowns, strikes not instigated by the affected Party, or disruption to national fuel supply.\nThe affected Party shall notify the other Party in writing within 72 hours of the force majeure event arising, and shall\nresume performance as soon as reasonably practicable once the event subsides."
+      ],
+      "ground_truth": "Beyond +/- 2 degrees Celsius from set point, reported to the depot duty manager immediately.",
+      "confidence": 0.66,
+      "rewritten_query": "how far can the temperature drift before someone has to be told",
+      "avg_similarity": 0.658,
+      "citation_count": 5
+    },
+    {
+      "id": "Q04",
+      "query": "what do we do when an incident is marked CRITICAL",
+      "query_type": "identifier",
+      "document_type": "sop",
+      "answer": "When an incident is marked **CRITICAL**, you must act immediately and then follow up with written documentation.\n\n- **Notify right away** \u2013 place a phone call to the designated contacts as soon as the incident occurs.  \n- **Submit a written report** \u2013 prepare and file a detailed incident report within **4\u202fhours** of the event.  \n- **Escalate to senior leadership** \u2013 the report must be sent to the **Regional Operations Head** and the **Compliance Officer** for further action.  \n\nThese steps satisfy the critical\u2011severity response and escalation path outlined in the SOP. (Source: *sop_vantage_freight.pdf, Page\u202f2, Table*).",
+      "contexts": [
+        "Any accident, cargo damage, delay exceeding four hours, or safety violation must be logged within two hours of\noccurrence. Incident IDs follow the format INC followed by an eight-digit sequence number, assigned automatically\nby the incident logging system at the time of filing. Severity-HIGH incidents require depot manager sign-off within",
+        "Where a shipment is dispatched using a vehicle operated by a third-party transport vendor under contract with\nVantage Freight & Logistics, the depot dispatching the shipment remains responsible for verifying that the vendor's\nvehicle and driver meet all applicable sections of this SOP before departure. A vendor's own internal procedures\ndo not substitute for this verification.\n\u2022 Confirm the vendor vehicle carries a valid AIS-140 GPS tracking device before dispatch, per Circular 16/2025.\n\u2022 Confirm the vendor driver's licence and medical fitness certificate independently, even if the vendor has\nalready verified these internally.",
+        "|Severity|Initial Response Time|Escalation Path|\n|---|---|---|\n|LOW|Within same shift|Shift supervisor logs and closes|\n|MEDIUM|Within 4 hours|Depot manager reviews and signs off|\n|HIGH|Within 24 hours|Depot manager sign&amp;#45;off + regional notification|\n|CRITICAL|Immediate (phone) + 4&amp;#45;hour written report|Regional Operations Head + Compliance Officer|",
+        "\u2022 Verify the presence of an emergency contact card and a stocked first-aid kit.\n\u2022 Confirm the fuel card balance is sufficient for the round trip plus a 15% buffer.\n\u2022 Obtain the loading supervisor's signed gate pass before the vehicle exits the depot.",
+        "Central WMS\nIncident reports (all severities)"
+      ],
+      "ground_truth": "Immediate phone escalation to the Regional Operations Head, followed by a written report within four hours.",
+      "confidence": 0.41,
+      "rewritten_query": "what do we do when an incident is marked CRITICAL",
+      "avg_similarity": 0.41,
+      "citation_count": 5
+    },
+    {
+      "id": "Q05",
+      "query": "how long do we have to keep cold chain temperature logs",
+      "query_type": "table_lookup",
+      "document_type": "sop",
+      "answer": "**Cold\u2011chain temperature logs must be kept for three years** from the date they\u2019re created. (Source: sop_vantage_freight.pdf, page\u202f3, Table)  \nDigital copies uploaded to the central WMS within 48\u202fhours satisfy this three\u2011year retention requirement. (Source: sop_vantage_freight.pdf, page\u202f2, 8\u202fDOCUMENTATION AND RECORD RETENTION)",
+      "contexts": [
+        "Record Type\nRetention Period\nStorage Location\nCold-chain temperature logs",
+        "|Record Type|Retention Period|Storage Location|\n|---|---|---|\n|Cold&amp;#45;chain temperature logs|3 years|Central WMS|\n|Incident reports (all severities)|5 years|Compliance Office archive|\n|Fire safety inspection tags|2 years|Depot|",
+        "All loading compliance sheets, pre-trip inspection checklists, cold-chain temperature logs, and incident reports\nmust be retained at the depot level for a minimum of three years from the date of creation, and made available to\nthe Compliance Office or any regulatory authority upon request. Digital copies uploaded to the central WMS satisfy\nthis requirement in place of physical retention, provided the upload is completed within 48 hours of the record\nbeing created.",
+        "\u2022 Reefer unit temperature must be logged at loading, mid-route, and delivery checkpoints.\n\u2022 Any deviation beyond +/- 2 degrees Celsius from the set point must be reported to the depot duty manager\nimmediately.\n\u2022 Pre-cooling of the cargo bay is mandatory at least 30 minutes before loading begins.\n\u2022 Perishable shipments exceeding 6 hours in transit require a mandatory mid-route inspection stop, logged in\nthe dispatch system.",
+        "|Severity|Initial Response Time|Escalation Path|\n|---|---|---|\n|LOW|Within same shift|Shift supervisor logs and closes|\n|MEDIUM|Within 4 hours|Depot manager reviews and signs off|\n|HIGH|Within 24 hours|Depot manager sign&amp;#45;off + regional notification|\n|CRITICAL|Immediate (phone) + 4&amp;#45;hour written report|Regional Operations Head + Compliance Officer|"
+      ],
+      "ground_truth": "Three years, held in the central WMS.",
+      "confidence": 0.78,
+      "rewritten_query": "how long do we have to keep cold chain temperature logs",
+      "avg_similarity": 0.777,
+      "citation_count": 5
+    }
+  ]
+}
