@@ -1,0 +1,33 @@
+# OpsPilot backend on AWS EC2 (HTTPS is handled by CloudFront in front of it).
+# The frontend stays on Vercel, so it is not part of this file.
+# Run from the repo root:  docker compose -f docker-compose.aws.yml up -d --build
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: opspilot-backend
+    env_file:
+      - ./backend/.env
+    environment:
+      # Keep the downloaded embedding model on the persistent folder,
+      # so it isn't re-downloaded every time the container restarts.
+      - FASTEMBED_CACHE_PATH=/app/data/fastembed_cache
+    ports:
+      # EC2 port 80 (what CloudFront talks to) -> container port 8080 (uvicorn)
+      - "80:8080"
+    volumes:
+      # Chroma index + sessions.db live here and survive rebuilds/redeploys.
+      - ./backend/data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

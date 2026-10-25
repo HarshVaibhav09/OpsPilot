@@ -1,10 +1,20 @@
 import gc
+import re
 
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 from rank_bm25 import BM25Okapi
 
 from app.core.config import settings
+
+
+_TOKEN_RE = re.compile(r"[a-z0-9]+")
+
+
+def _tokenize(text: str) -> list[str]:
+    # Strips punctuation so "invoice?" and "INV-2024-118" match their
+    # corpus forms. Must be used for both indexing and querying.
+    return _TOKEN_RE.findall(text.lower())
 
 
 class VectorStore:
@@ -79,7 +89,7 @@ class VectorStore:
         if not self._bm25:
             return dense
 
-        bm25_scores = self._bm25.get_scores(query.lower().split())
+        bm25_scores = self._bm25.get_scores(_tokenize(query))
 
         bm25_rank = sorted(
             enumerate(bm25_scores),
@@ -108,7 +118,10 @@ class VectorStore:
 
         bm25_added = 0
 
-        for idx, _ in bm25_rank:
+        for idx, score in bm25_rank:
+            if score <= 0:
+                break
+
             meta = self._metadatas[idx]
 
             if doc_id and meta["doc_id"] != doc_id:
@@ -172,7 +185,7 @@ class VectorStore:
         self._metadatas = metadatas
 
         self._bm25 = (
-            BM25Okapi([doc.lower().split() for doc in documents])
+            BM25Okapi([_tokenize(doc) for doc in documents])
             if documents
             else None
         )

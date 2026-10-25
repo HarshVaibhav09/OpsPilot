@@ -8,9 +8,9 @@ Recall@5 asks whether a relevant chunk appeared in the top 5, which is the numbe
 
 | Configuration | Recall@5 | MRR | p50 latency |
 |---|---|---|---|
-| Dense only | 0.74 | 0.639 | 11.5 ms |
-| Hybrid (dense + BM25, RRF) | 0.84 | 0.655 | 19.4 ms |
-| **Delta** | **+0.100** | **+0.016** | |
+| Dense only | 0.74 | 0.639 | 10.1 ms |
+| Hybrid (dense + BM25, RRF) | 0.86 | 0.711 | 15.8 ms |
+| **Delta** | **+0.120** | **+0.072** | |
 
 ## By query style
 
@@ -18,9 +18,9 @@ This breakdown explains the headline. Hybrid should win clearly on identifier qu
 
 | Query style | n | Dense recall@5 | Hybrid recall@5 | Delta | Dense MRR | Hybrid MRR |
 |---|---|---|---|---|---|---|
-| identifier | 17 | 0.529 | 0.765 | +0.236 | 0.417 | 0.5 |
+| identifier | 17 | 0.529 | 0.765 | +0.236 | 0.417 | 0.632 |
 | multi_hop | 5 | 0.8 | 0.8 | +0.000 | 0.8 | 0.7 |
-| paraphrase | 17 | 0.824 | 0.824 | +0.000 | 0.755 | 0.602 |
+| paraphrase | 17 | 0.824 | 0.882 | +0.058 | 0.755 | 0.634 |
 | table_lookup | 11 | 0.909 | 1.0 | +0.091 | 0.73 | 0.955 |
 
 ## By document type
@@ -28,15 +28,14 @@ This breakdown explains the headline. Hybrid should win clearly on identifier qu
 | Document type | n | Dense recall@5 | Hybrid recall@5 | Delta |
 |---|---|---|---|---|
 | contract | 11 | 0.909 | 1.0 | +0.091 |
-| data_log | 10 | 0.4 | 0.5 | +0.100 |
+| data_log | 10 | 0.4 | 0.6 | +0.200 |
 | invoice | 8 | 0.75 | 0.875 | +0.125 |
 | rate_card | 10 | 0.7 | 0.8 | +0.100 |
 | sop | 11 | 0.909 | 1.0 | +0.091 |
 
 ## Queries where hybrid regressed
 
-- Q38 (identifier): what's on driver DRV00058's record
-- Q47 (paraphrase): what happens if a client pays late
+None.
 
 ## Known limitations
 
